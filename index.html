@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0b2e4f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="APavan Pilares">
+<meta name="application-name" content="APavan Pilares">
+<title>APavan Pilares — NBR 6118:2023</title>
+<link rel="apple-touch-icon" href="">
+<link rel="icon" href="">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" onerror="window.__chartFail=true"></script>
+<style>
+:root{--azul:#0b2e4f;--azul2:#14497c;--azul3:#1f6fbf;--cinza:#f4f6f9;--cinza2:#e2e8f0;--txt:#0f172a;--ok:#16a34a;--warn:#d97706;--err:#dc2626;--borda:#cbd5e1;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--cinza);color:var(--txt);font-size:15px;line-height:1.45;}
+body{padding-bottom:80px;}
+header.appbar{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,var(--azul) 0%,var(--azul2) 100%);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.18);padding-top:calc(12px + env(safe-area-inset-top));}
+header.appbar .logo{width:42px;height:42px;border-radius:10px;background:#fff;color:var(--azul);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;letter-spacing:-1px;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+header.appbar h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.3px;}
+header.appbar small{display:block;font-size:11px;opacity:.85;font-weight:400;}
+header.appbar .actions{margin-left:auto;display:flex;gap:6px;}
+header.appbar button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:8px 10px;border-radius:8px;font-size:12px;cursor:pointer;}
+header.appbar button:active{background:rgba(255,255,255,.3);}
+nav.tabs{display:flex;overflow-x:auto;background:#fff;border-bottom:1px solid var(--borda);position:sticky;top:calc(66px + env(safe-area-inset-top));z-index:40;scrollbar-width:none;}
+nav.tabs::-webkit-scrollbar{display:none;}
+nav.tabs button{flex:0 0 auto;background:none;border:none;padding:12px 14px;font-size:13px;color:#475569;cursor:pointer;border-bottom:3px solid transparent;font-weight:600;white-space:nowrap;}
+nav.tabs button.active{color:var(--azul2);border-bottom-color:var(--azul3);}
+main{padding:14px;max-width:1100px;margin:0 auto;}
+.card{background:#fff;border:1px solid var(--borda);border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.card h2{margin:0 0 12px;font-size:14px;color:var(--azul);text-transform:uppercase;letter-spacing:.6px;}
+.card h3{margin:14px 0 8px;font-size:13px;color:#334155;}
+.grid{display:grid;gap:10px;}
+.grid.two{grid-template-columns:1fr 1fr;}
+.grid.three{grid-template-columns:1fr 1fr 1fr;}
+@media(min-width:720px){.grid.resp-2{grid-template-columns:1fr 1fr;}.grid.resp-3{grid-template-columns:1fr 1fr 1fr;}.grid.resp-4{grid-template-columns:1fr 1fr 1fr 1fr;}}
+label{display:block;font-size:12px;color:#475569;margin-bottom:4px;font-weight:600;}
+label small{color:#94a3b8;font-weight:400;}
+input,select{width:100%;padding:10px 12px;border:1px solid var(--borda);border-radius:8px;font-size:15px;background:#fff;color:var(--txt);outline:none;transition:.15s;}
+input:focus,select:focus{border-color:var(--azul3);box-shadow:0 0 0 3px rgba(31,111,191,.15);}
+button.btn{background:var(--azul2);color:#fff;border:none;padding:11px 16px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s;width:100%;}
+button.btn:active{transform:translateY(1px);background:var(--azul);}
+button.btn.sec{background:#fff;color:var(--azul2);border:1px solid var(--azul2);}
+button.btn.sm{padding:8px 12px;font-size:12px;width:auto;}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(min-width:720px){.dash-grid{grid-template-columns:repeat(3,1fr);}}
+.metric{background:#fff;border:1px solid var(--borda);border-radius:10px;padding:12px;}
+.metric .label{font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+.metric .value{font-size:22px;font-weight:700;color:var(--azul);margin-top:4px;}
+.metric .value small{font-size:12px;color:#94a3b8;font-weight:500;margin-left:2px;}
+.metric.ok{border-left:4px solid var(--ok);}.metric.warn{border-left:4px solid var(--warn);}.metric.err{border-left:4px solid var(--err);}
+.metric .status{font-size:11px;margin-top:4px;font-weight:600;}
+.metric .status.ok{color:var(--ok);}.metric .status.warn{color:var(--warn);}.metric .status.err{color:var(--err);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+table th,table td{padding:7px 6px;border-bottom:1px solid var(--cinza2);text-align:left;vertical-align:top;}
+table th{background:#f8fafc;font-weight:600;color:#334155;font-size:11px;text-transform:uppercase;letter-spacing:.3px;}
+table td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;}
+.badge.ok{background:#dcfce7;color:#166534;}.badge.err{background:#fee2e2;color:#991b1b;}
+.badge.warn{background:#fef3c7;color:#92400e;}.badge.info{background:#dbeafe;color:#1e40af;}
+.alert{padding:10px 12px;border-radius:8px;font-size:13px;margin-bottom:8px;border-left:4px solid;}
+.alert.ok{background:#f0fdf4;border-color:var(--ok);color:#14532d;}
+.alert.warn{background:#fffbeb;border-color:var(--warn);color:#78350f;}
+.alert.err{background:#fef2f2;border-color:var(--err);color:#7f1d1d;}
+.alert.info{background:#eff6ff;border-color:var(--azul3);color:#1e3a8a;}
+.chart-wrap{position:relative;height:260px;margin:10px 0;width:100%;}
+.chart-wrap canvas{width:100%!important;height:100%!important;display:block;}
+.secao-svg{width:100%;max-width:340px;margin:0 auto;display:block;}
+.hidden{display:none!important;}
+footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-top:1px solid var(--borda);margin-top:20px;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--borda);display:flex;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom));z-index:45;}
+.bottom-nav button{background:none;border:none;color:#64748b;font-size:10px;font-weight:600;padding:6px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;flex:1;}
+.bottom-nav button.active{color:var(--azul3);}
+.bottom-nav svg{width:22px;height:22px;}
+.pill-row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;}
+.pill{background:#f1f5f9;border:1px solid var(--borda);padding:6px 10px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;}
+.pill.active{background:var(--azul2);color:#fff;border-color:var(--azul2);}
+.ref-box{background:#f8fafc;border-left:3px solid var(--azul3);padding:8px 10px;font-size:12px;color:#334155;margin:8px 0;border-radius:0 6px 6px 0;}
+@media print{header.appbar,nav.tabs,.bottom-nav,button{display:none!important;}body{background:#fff;padding:0;}.card{box-shadow:none;page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <div class="logo">AP</div>
+  <div>
+    <h1>APavan Pilares</h1>
+    <small>NBR 6118:2023 — Concreto Armado</small>
+  </div>
+  <div class="actions">
+    <button onclick="App.saveProject()" title="Salvar">💾</button>
+    <button onclick="App.newProject()" title="Novo">＋</button>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="dash" class="active">Dashboard</button>
+  <button data-tab="id">Identificação</button>
+  <button data-tab="geo">Geometria</button>
+  <button data-tab="mat">Materiais</button>
+  <button data-tab="cob">Cobrimento</button>
+  <button data-tab="arm">Armaduras</button>
+  <button data-tab="acoes">Ações</button>
+  <button data-tab="elU">Esforços</button>
+  <button data-tab="nm">N-M</button>
+  <button data-tab="global">Estabilidade Global</button>
+  <button data-tab="verif">Verificações</button>
+  <button data-tab="mem">Memorial</button>
+  <button data-tab="sobre">Sobre</button>
+</nav>
+
+<main>
+
+<section id="tab-dash" class="tab-panel">
+  <div class="card"><h2>Resumo do Pilar</h2><div id="dash-info" style="font-size:13px;color:#475569;margin-bottom:10px;"></div><div class="dash-grid" id="dash-metrics"></div></div>
+  <div class="card"><h2>Alertas</h2><div id="dash-alerts"></div></div>
+  <div class="card"><h2>Conclusão Automática</h2><div id="dash-conclusion"></div></div>
+</section>
+
+<section id="tab-id" class="tab-panel hidden">
+  <div class="card">
+    <h2>Identificação do Projeto</h2>
+    <div class="grid two">
+      <div><label>Obra</label><input id="in_obra" placeholder="Edifício Residencial"></div>
+      <div><label>Pavimento</label><input id="in_pav" placeholder="Térreo"></div>
+      <div><label>Pilar</label><input id="in_pilar" placeholder="P1"></div>
+      <div><label>Responsável</label><input id="in_resp" placeholder="Eng. Civil"></div>
+      <div><label>Data</label><input id="in_data" type="date"></div>
+      <div><label>CREA / ART</label><input id="in_crea" placeholder="CREA-SC 86959-8"></div>
+    </div>
+    <div style="margin-top:10px;"><label>Observações</label><textarea id="in_obs" rows="3" style="width:100%;padding:10px;border:1px solid var(--borda);border-radius:8px;font-family:inherit;font-size:14px;"></textarea></div>
+  </div>
+  <div class="card">
+    <h2>Modo de Análise</h2>
+    <div class="pill-row"><div class="pill active" data-mode="dim">DIMENSIONAR</div><div class="pill" data-mode="ver">VERIFICAR</div></div>
+    <div class="pill-row"><div class="pill" data-nivel="rapido">MODO RÁPIDO</div><div class="pill active" data-nivel="completo">MODO COMPLETO</div><div class="pill" data-nivel="prof">MODO PROFISSIONAL</div></div>
+  </div>
+</section>
+
+<section id="tab-geo" class="tab-panel hidden">
+  <div class="card">
+    <h2>Geometria do Pilar</h2>
+    <div class="grid two">
+      <div><label>Tipo de Seção</label><select id="in_tipo"><option value="ret">Retangular</option><option value="quad">Quadrada</option><option value="circ">Circular</option></select></div>
+      <div><label>Altura livre l <small>[m]</small></label><input id="in_l" type="number" value="3.00" step="0.05"></div>
+      <div><label>Largura b <small>[cm]</small></label><input id="in_b" type="number" value="20" step="1"></div>
+      <div><label>Altura h <small>[cm]</small></label><input id="in_h" type="number" value="40" step="1"></div>
+      <div><label>Condição de apoio</label><select id="in_apoio"><option value="1">Biapoiado (le = l)</option><option value="2">Engastado-rotulado (le = 0.7l)</option><option value="3">Biengastado (le = 0.5l)</option><option value="4">Balanço livre (le = 2l)</option></select></div>
+      <div><label>λ efetivo l<sub>e</sub> <small>[m]</small></label><input id="in_le" type="number" step="0.01" value="3.00"></div>
+    </div>
+    <button class="btn sec sm" style="margin-top:10px;" onclick="App.Engine.updateLe()">↻ Recalcular l<sub>e</sub></button>
+  </div>
+  <div class="card"><h2>Seção Transversal</h2><svg class="secao-svg" id="svg-secao" viewBox="0 0 340 340"></svg></div>
+  <div class="card"><h2>Propriedades Geométricas</h2><table id="tbl-geo"></table></div>
+</section>
+
+<section id="tab-mat" class="tab-panel hidden">
+  <div class="card">
+    <h2>Concreto</h2>
+    <div class="grid two">
+      <div><label>f<sub>ck</sub> <small>[MPa]</small></label><input id="in_fck" type="number" value="30" step="5"></div>
+      <div><label>Classe</label><select id="in_classe"><option>C20</option><option>C25</option><option selected>C30</option><option>C35</option><option>C40</option><option>C45</option><option>C50</option><option>C60</option><option>C70</option><option>C80</option><option>C90</option></select></div>
+      <div><label>γ<sub>c</sub></label><input id="in_gc" type="number" value="1.4" step="0.05"></div>
+      <div><label>α<sub>E</sub></label><input id="in_ae" type="number" value="1.0" step="0.1"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Aço</h2>
+    <div class="grid two">
+      <div><label>Aço longitudinal</label><select id="in_acoL"><option>CA-25</option><option>CA-50</option><option selected>CA-60</option></select></div>
+      <div><label>Aço transversal</label><select id="in_acoT"><option>CA-25</option><option selected>CA-50</option><option>CA-60</option></select></div>
+      <div><label>f<sub>yk</sub> <small>[MPa]</small></label><input id="in_fyk" type="number" value="500" step="50"></div>
+      <div><label>γ<sub>s</sub></label><input id="in_gs" type="number" value="1.15" step="0.05"></div>
+    </div>
+  </div>
+  <div class="card"><h2>Parâmetros Derivados</h2><table id="tbl-mat"></table></div>
+  <div class="card">
+    <h2>Rigidez para Análise Global — NLF (NBR 6118:2023, 15.7.3)</h2>
+    <div class="ref-box">Valores aproximados de rigidez para análise global de 2ª ordem em estruturas reticuladas com ≥ 4 andares. <b>Estes valores NÃO podem ser usados para avaliar esforços locais de 2ª ordem.</b></div>
+    <table id="tbl-nlf"></table>
+  </div>
+</section>
+
+<section id="tab-cob" class="tab-panel hidden">
+  <div class="card">
+    <h2>Cobrimento das Armaduras</h2>
+    <div class="grid two">
+      <div><label>Classe de Agressividade Ambiental (CAA)</label><select id="in_caa"><option value="I">I — Rural / Submersa</option><option value="II" selected>II — Urbana</option><option value="III">III — Marinha / Industrial</option><option value="IV">IV — Industrial agressivo</option></select></div>
+      <div><label>c<sub>nom</sub> <small>[mm]</small></label><input id="in_cnom" type="number" value="25" step="5"></div>
+      <div><label>Tolerância Δc <small>[mm]</small></label><input id="in_dc" type="number" value="10" step="5"></div>
+      <div><label>c<sub>min</sub> adotado <small>[mm]</small></label><input id="in_cmin" type="number" value="20" step="5"></div>
+    </div>
+    <div id="cob-status" style="margin-top:10px;"></div>
+  </div>
+</section>
+
+<section id="tab-arm" class="tab-panel hidden">
+  <div class="card">
+    <h2>Armadura Longitudinal</h2>
+    <div class="grid three">
+      <div><label>Ø<sub>long</sub> <small>[mm]</small></label><select id="in_dl"><option>8</option><option>10</option><option>12.5</option><option selected>16</option><option>20</option><option>22</option><option>25</option><option>32</option><option>40</option></select></div>
+      <div><label>Nº de barras</label><input id="in_nb" type="number" value="6" step="1" min="4"></div>
+      <div><label>A<sub>s,ef</sub> <small>[cm²]</small></label><input id="in_asef" type="number" step="0.01" readonly style="background:#f1f5f9;"></div>
+    </div>
+    <div class="grid two" style="margin-top:8px;">
+      <div><label>Barras por face maior (n<sub>h</sub>)</label><input id="in_nh" type="number" value="2" step="1"></div>
+      <div><label>Barras por face menor (n<sub>v</sub>)</label><input id="in_nv" type="number" value="2" step="1"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Armadura Transversal (Estribos)</h2>
+    <div class="grid three">
+      <div><label>Ø<sub>t</sub> <small>[mm]</small></label><select id="in_dt"><option>5</option><option selected>6.3</option><option>8</option><option>10</option></select></div>
+      <div><label>Espaçamento s <small>[cm]</small></label><input id="in_s" type="number" value="15" step="1"></div>
+      <div><label>Ramos</label><select id="in_ramos"><option>2</option><option selected>4</option><option>6</option></select></div>
+    </div>
+  </div>
+  <div class="card"><h2>Seção Transversal Armada</h2><svg class="secao-svg" id="svg-secao2" viewBox="0 0 340 340"></svg></div>
+  <div class="card"><h2>Verificações de Armadura</h2><table id="tbl-arm"></table></div>
+</section>
+
+<section id="tab-acoes" class="tab-panel hidden">
+  <div class="card">
+    <h2>Ações no Pilar</h2>
+    <h3>Esforços Característicos</h3>
+    <div class="grid three">
+      <div><label>N<sub>k</sub> <small>[kN]</small></label><input id="in_Nk" type="number" value="800" step="10"></div>
+      <div><label>M<sub>kx</sub> <small>[kN·m]</small></label><input id="in_Mkx" type="number" value="20" step="1"></div>
+      <div><label>M<sub>ky</sub> <small>[kN·m]</small></label><input id="in_Mky" type="number" value="10" step="1"></div>
+      <div><label>V<sub>kx</sub> <small>[kN]</small></label><input id="in_Vkx" type="number" value="10" step="1"></div>
+      <div><label>V<sub>ky</sub> <small>[kN]</small></label><input id="in_Vky" type="number" value="5" step="1"></div>
+      <div><label>Tipo de ação</label><select id="in_tipoA"><option value="normal" selected>Normal</option><option value="especial">Especial</option><option value="construcao">Construção</option></select></div>
+    </div>
+    <h3>Coeficientes de ponderação (ELU)</h3>
+    <div class="grid three">
+      <div><label>γ<sub>g</sub> (permanente)</label><input id="in_gg" type="number" value="1.4" step="0.1"></div>
+      <div><label>γ<sub>q</sub> (variável)</label><input id="in_gq" type="number" value="1.4" step="0.1"></div>
+      <div><label>γ<sub>n</sub> (majoração N)</label><input id="in_gn" type="number" value="1.0" step="0.1"></div>
+    </div>
+    <h3>Ações Globais</h3>
+    <div class="grid three">
+      <div><label>Peso total edifício <small>[kN]</small></label><input id="in_Wtot" type="number" value="20000" step="100"></div>
+      <div><label>Força horizontal <small>[kN]</small></label><input id="in_Fh" type="number" value="200" step="10"></div>
+      <div><label>Deslocamento topo <small>[mm]</small></label><input id="in_dtopo" type="number" value="25" step="1"></div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-elU" class="tab-panel hidden">
+  <div class="card"><h2>Esforços de Cálculo (ELU)</h2><table id="tbl-esforcos"></table></div>
+  <div class="card"><h2>Esbeltez e Excentricidades</h2><table id="tbl-esb"></table></div>
+</section>
+
+<section id="tab-nm" class="tab-panel hidden">
+  <div class="card"><h2>Diagrama N-M (Interação)</h2><div class="chart-wrap"><canvas id="chart-nm"></canvas></div><div id="nm-status" style="margin-top:8px;"></div></div>
+  <div class="card">
+    <h2>Diagramas Dinâmicos</h2>
+    <h3>Momento Fletor × Altura</h3><div class="chart-wrap"><canvas id="chart-m"></canvas></div>
+    <h3>Cortante × Altura</h3><div class="chart-wrap"><canvas id="chart-v"></canvas></div>
+    <h3>Força Normal × Altura</h3><div class="chart-wrap"><canvas id="chart-n"></canvas></div>
+    <h3>Deslocamento × Altura</h3><div class="chart-wrap"><canvas id="chart-d"></canvas></div>
+    <h3>Curvatura × Altura</h3><div class="chart-wrap"><canvas id="chart-k"></canvas></div>
+  </div>
+  <div class="card"><h2>Diagrama de Deformações da Seção</h2><svg class="secao-svg" id="svg-def" viewBox="0 0 340 260"></svg></div>
+</section>
+
+<section id="tab-global" class="tab-panel hidden">
+  <div class="card">
+    <h2>Parâmetro de Instabilidade α — NBR 6118:2023, 15.5.2</h2>
+    <div class="ref-box"><b>α = H<sub>tot</sub> · √(N<sub>k</sub> / (E<sub>cs</sub>·I<sub>c</sub>))</b><br>
+    Comparação com α₁: se α &lt; α₁ → nós fixos; se α ≥ α₁ → nós móveis.<br>
+    α₁ = 0,2 + 0,1·n (n ≤ 3) | α₁ = 0,6 (n ≥ 4) | α₁ = 0,7 (pilar-parede) | α₁ = 0,5 (pórtico)</div>
+    <div class="grid three">
+      <div><label>Altura total H<sub>tot</sub> <small>[m]</small></label><input id="in_Htot" type="number" value="15" step="0.5"></div>
+      <div><label>Nº de níveis n</label><input id="in_n_niveis" type="number" value="5" step="1" min="1"></div>
+      <div><label>N<sub>k,tot</sub> <small>[kN]</small></label><input id="in_Nk_tot" type="number" value="20000" step="500"></div>
+      <div><label>Σ E<sub>cs</sub>·I<sub>c</sub> <small>[kN·m²]</small></label><input id="in_sumEI" type="number" value="5000000" step="100000"></div>
+      <div><label>Tipo de contraventamento</label><select id="in_tipo_contravent"><option value="portico">Somente pórticos (α₁=0,5)</option><option value="misto" selected>Misto (α₁=0,6)</option><option value="parede">Somente pilares-parede (α₁=0,7)</option></select></div>
+    </div>
+    <div id="alpha-status" style="margin-top:10px;"></div>
+  </div>
+  <div class="card">
+    <h2>Estabilidade Global — γ<sub>z</sub> — NBR 6118:2023, 15.5.3</h2>
+    <div class="ref-box"><b>γ<sub>z</sub> = 1 / (1 − ΔM<sub>tot,d</sub> / M<sub>1,tot,d</sub>)</b><br>
+    ΔM<sub>tot,d</sub> = Σ(P<sub>d</sub> · u<sub>h,h</sub>)<br>M<sub>1,tot,d</sub> = momento de tombamento<br>
+    Validade: γ<sub>z</sub> ≤ 1,30</div>
+    <div class="grid two">
+      <div><label>ΔM<sub>tot,d</sub> <small>[kN·m]</small></label><input id="in_dMtot" type="number" value="1200" step="10"></div>
+      <div><label>M<sub>1,tot,d</sub> <small>[kN·m]</small></label><input id="in_M1tot" type="number" value="8000" step="100"></div>
+    </div>
+    <div id="gz-status" style="margin-top:10px;"></div>
+    <h3>γ<sub>z</sub> por pavimento</h3>
+    <div class="grid three"><div><label>Nº de pavimentos</label><input id="in_npav" type="number" value="5" min="1" step="1"></div></div>
+    <div class="chart-wrap"><canvas id="chart-gz"></canvas></div>
+  </div>
+  <div class="card">
+    <h2>Método P-Δ Iterativo (Carga Lateral Fictícia)</h2>
+    <div class="ref-box">Método iterativo para efeitos globais de 2ª ordem. A cada iteração calcula-se ΔM e uma força lateral fictícia até convergência.<br>
+    Δ = F<sub>d</sub>·l³ / (3·(EI)<sub>sec</sub>) · com (EI)<sub>sec</sub> = 0,7·E<sub>ci</sub>·I<sub>c</sub> (NBR 6118:2023, 15.7.3)</div>
+    <div class="grid three">
+      <div><label>F<sub>d</sub> (ação horizontal) <small>[kN]</small></label><input id="in_Fd_pd" type="number" value="50" step="5"></div>
+      <div><label>P<sub>d</sub> (carga vertical) <small>[kN]</small></label><input id="in_Pd_pd" type="number" value="10000" step="100"></div>
+      <div><label>Comprimento l <small>[m]</small></label><input id="in_l_pd" type="number" value="5" step="0.5"></div>
+    </div>
+    <button class="btn sm" style="margin-top:8px;" onclick="runPDelta()">▶ Executar P-Δ iterativo</button>
+    <div id="pd-status" style="margin-top:10px;"></div>
+  </div>
+  <div class="card">
+    <h2>Deslocamentos Globais</h2>
+    <div class="ref-box">Gráfico baseado na altura livre do pilar (l) e deslocamento do topo (d<sub>topo</sub>) da aba Ações. Independente do P-Δ.</div>
+    <div class="chart-wrap"><canvas id="chart-global"></canvas></div>
+  </div>
+</section>
+
+<section id="tab-verif" class="tab-panel hidden">
+  <div class="card"><h2>Painel de Verificações</h2><table id="tbl-verif"></table></div>
+  <div class="card"><h2>Tabela de Resultados</h2><table id="tbl-results"></table></div>
+</section>
+
+<section id="tab-mem" class="tab-panel hidden">
+  <div class="card">
+    <h2>Memorial de Cálculo</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn sm" onclick="Report.generate()">📄 GERAR MEMORIAL</button>
+      <button class="btn sm sec" onclick="Report.pdf()">🖨️ EXPORTAR PDF</button>
+      <button class="btn sm sec" onclick="App.exportJSON()">⬇️ EXPORTAR JSON</button>
+      <button class="btn sm sec" onclick="document.getElementById('fileImp').click()">⬆️ IMPORTAR JSON</button>
+      <input type="file" id="fileImp" accept=".json" class="hidden" onchange="App.importJSON(event)">
+    </div>
+  </div>
+  <div class="card" id="memorial-out"><div class="alert info">Clique em GERAR MEMORIAL.</div></div>
+</section>
+
+<section id="tab-sobre" class="tab-panel hidden">
+  <div class="card">
+    <h2>Sobre</h2>
+    <p><b>APavan Pilares</b><br>Dimensionamento de pilares e estabilidade global em concreto armado.</p>
+    <p>Norma: <b>ABNT NBR 6118:2023</b></p>
+    <hr>
+    <p><b>APavan Engenharia e Consultoria</b><br>Engenheiro Civil — Engenheiro de Segurança do Trabalho<br>CREA-SC 86959-8<br>Tubarão — SC</p>
+    <p>📞 (48) 99986-2981<br>✉️ apavaneng@gmail.com<br>📷 @apavaneng</p>
+    <hr>
+    <p style="font-size:12px;color:#64748b;"><b>Limitações:</b> Esta ferramenta é destinada ao apoio ao cálculo e à verificação de estruturas. Os resultados devem ser conferidos por profissional legalmente habilitado e não substituem a análise, o julgamento de engenharia, os projetos executivos e as verificações completas exigidas pelas normas aplicáveis.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="legal">APavan Engenharia e Consultoria · CREA-SC 86959-8 · Tubarão/SC<br>Ferramenta de apoio — não substitui o julgamento de engenheiro habilitado.</footer>
+
+<nav class="bottom-nav">
+  <button data-tab="dash" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dash</button>
+  <button data-tab="geo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16"/></svg>Seção</button>
+  <button data-tab="acoes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3v18"/></svg>Ações</button>
+  <button data-tab="verif"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Verif.</button>
+  <button data-tab="mem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Memorial</button>
+</nav>
+
+<script>
+/* ============================================================
+   ÍCONE iOS DINÂMICO
+   ============================================================ */
+(function generateIcon(){
+  try{
+    const S=512,c=document.createElement('canvas');c.width=c.height=S;
+    const g=c.getContext('2d');
+    const grad=g.createLinearGradient(0,0,0,S);
+    grad.addColorStop(0,'#2a7ed1');grad.addColorStop(1,'#0d3a63');
+    g.fillStyle=grad;
+    const r=S*0.22;
+    g.beginPath();g.moveTo(r,0);g.lineTo(S-r,0);g.quadraticCurveTo(S,0,S,r);g.lineTo(S,S-r);g.quadraticCurveTo(S,S,S-r,S);g.lineTo(r,S);g.quadraticCurveTo(0,S,0,S-r);g.lineTo(0,r);g.quadraticCurveTo(0,0,r,0);g.closePath();g.fill();
+    g.fillStyle='#fff';g.textAlign='center';g.textBaseline='middle';
+    g.font='bold '+Math.round(S*0.34)+'px -apple-system,"Helvetica Neue",Arial,sans-serif';
+    g.fillText('AP',S/2,S*0.40);
+    g.fillStyle='rgba(255,255,255,0.55)';g.fillRect(S*0.32,S*0.585,S*0.36,S*0.008);
+    g.fillStyle='#fff';g.font='600 '+Math.round(S*0.105)+'px -apple-system,"Helvetica Neue",Arial,sans-serif';
+    g.fillText('PILARES',S/2,S*0.685);
+    g.fillStyle='rgba(255,255,255,0.85)';
+    const dotR=S*0.013,dotY=S*0.82,gap=S*0.052;
+    for(let i=-2;i<=2;i++){g.beginPath();g.arc(S/2+i*gap,dotY,dotR,0,Math.PI*2);g.fill();}
+    const dataUri=c.toDataURL('image/png');
+    document.querySelectorAll('link[rel="apple-touch-icon"],link[rel="icon"]').forEach(l=>l.href=dataUri);
+    const manifest={name:'APavan Pilares',short_name:'AP Pilares',start_url:'.',display:'standalone',background_color:'#0b2e4f',theme_color:'#0b2e4f',description:'Dimensionamento de pilares e estabilidade global — NBR 6118:2023.',icons:[{src:dataUri,sizes:'192x192',type:'image/png',purpose:'any'},{src:dataUri,sizes:'512x512',type:'image/png',purpose:'any'}]};
+    const blob=new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'});
+    const url=URL.createObjectURL(blob);
+    let linkM=document.querySelector('link[rel="manifest"]');
+    if(!linkM){linkM=document.createElement('link');linkM.rel='manifest';document.head.appendChild(linkM);}
+    linkM.href=url;
+  }catch(e){console.warn('ícone:',e);}
+})();
+
+const App=(()=>{
+  const state={mode:'dim',nivel:'completo',inputs:{},results:{},charts:{},pendingCharts:{}};
+
+  function num(id,def=0){const el=document.getElementById(id);if(!el)return def;const v=parseFloat(el.value);return isNaN(v)?def:v;}
+  function str(id,def=''){const el=document.getElementById(id);return el?(el.value||def):def;}
+
+  function collectInputs(){
+    return{
+      obra:str('in_obra'),pav:str('in_pav'),pilar:str('in_pilar','P1'),
+      resp:str('in_resp'),data:str('in_data'),crea:str('in_crea'),obs:str('in_obs'),
+      tipo:str('in_tipo','ret'),l:num('in_l',3),b:num('in_b',20),h:num('in_h',40),
+      apoio:str('in_apoio','1'),le:num('in_le',3),
+      fck:num('in_fck',30),classe:str('in_classe','C30'),gc:num('in_gc',1.4),ae:num('in_ae',1.0),
+      acoL:str('in_acoL','CA-60'),acoT:str('in_acoT','CA-50'),fyk:num('in_fyk',500),gs:num('in_gs',1.15),
+      caa:str('in_caa','II'),cnom:num('in_cnom',25),dc:num('in_dc',10),cmin:num('in_cmin',20),
+      dl:num('in_dl',16),nb:num('in_nb',6),nh:num('in_nh',2),nv:num('in_nv',2),
+      dt:num('in_dt',6.3),s:num('in_s',15),ramos:num('in_ramos',4),
+      Nk:num('in_Nk',800),Mkx:num('in_Mkx',20),Mky:num('in_Mky',10),
+      Vkx:num('in_Vkx',10),Vky:num('in_Vky',5),tipoA:str('in_tipoA','normal'),
+      gg:num('in_gg',1.4),gq:num('in_gq',1.4),gn:num('in_gn',1.0),
+      Wtot:num('in_Wtot',20000),Fh:num('in_Fh',200),dtopo:num('in_dtopo',25),
+      Htot:num('in_Htot',15),n_niveis:num('in_n_niveis',5),Nk_tot:num('in_Nk_tot',20000),
+      sumEI:num('in_sumEI',5000000),tipo_contravent:str('in_tipo_contravent','misto'),
+      dMtot:num('in_dMtot',1200),M1tot:num('in_M1tot',8000),npav:num('in_npav',5),
+      Fd_pd:num('in_Fd_pd',50),Pd_pd:num('in_Pd_pd',10000),l_pd:num('in_l_pd',5)
+    };
+  }
+
+  const Engine={
+    updateLe(){
+      const l=num('in_l',3);
+      const k={'1':1.0,'2':0.7,'3':0.5,'4':2.0}[str('in_apoio','1')]||1.0;
+      document.getElementById('in_le').value=(l*k).toFixed(2);
+      recalc();
+    },
+
+    section(inp){
+      const b=inp.b,h=inp.h;
+      if(inp.tipo==='circ'){
+        const D=b,Ac=Math.PI*D*D/4,I=Math.PI*Math.pow(D,4)/64,W=Math.PI*Math.pow(D,3)/32,i=Math.sqrt(I/Ac);
+        return{b:D,h:D,Ac,Ix:I,Iy:I,ix:i,iy:i,Wx:W,Wy:W,circular:true};
+      }
+      const Ac=b*h,Ix=b*Math.pow(h,3)/12,Iy=h*Math.pow(b,3)/12,ix=Math.sqrt(Ix/Ac),iy=Math.sqrt(Iy/Ac);
+      return{b,h,Ac,Ix,Iy,ix,iy,Wx:b*Math.pow(h,2)/6,Wy:h*Math.pow(b,2)/6};
+    },
+
+    materials(inp){
+      const{fck,gc,gs,fyk,ae}=inp;
+      const fcd=fck/gc,fyd=fyk/gs,Eci=ae*5600*Math.sqrt(fck);
+      const alphaI=Math.min(1.0,0.8+0.2*fck/80),Ecs=alphaI*Eci;
+      let ec2,ecu;
+      if(fck<=50){ec2=2.0;ecu=3.5;}
+      else{ec2=2.0+0.085*Math.pow(fck-50,0.53);ecu=2.6+35*Math.pow((90-fck)/100,4);}
+      return{fcd,fyd,Eci,Ecs,alphaI,ec2,ecu,fck,fyk};
+    },
+
+    reinforcement(inp){
+      const dl=inp.dl,nb=inp.nb,As1=Math.PI*dl*dl/4/100;
+      return{As:nb*As1,As1,nb,dl};
+    },
+
+    slenderness(inp,sec){
+      const lex=inp.le*100,ley=inp.le*100;
+      const lx=lex/sec.ix,ly=ley/sec.iy;
+      const critico=lx>=ly?'x':'y';
+      const lmax=Math.max(lx,ly);
+      let clas;
+      if(lmax<=35)clas='Curto';
+      else if(lmax<=90)clas='Mediamente esbelto';
+      else if(lmax<=140)clas='Esbelto';
+      else clas='Muito esbelto';
+      const mat=Engine.materials(inp);
+      const nu=inp.Nk*1.4/(sec.Ac*mat.fcd*0.1);
+      return{lx,ly,critico,lmax,clas,lambda1:25,nu};
+    },
+
+    eccentricities(inp,sec,forces){
+      const{Nd,Mdx,Mdy}=forces;
+      const ex1=Nd>0?(Mdx/Nd)*100:0,ey1=Nd>0?(Mdy/Nd)*100:0;
+      const exMin=Math.max(sec.h/30,1.5),eyMin=Math.max(sec.b/30,1.5);
+      const ea=Math.max(inp.l*100/300,1.5);
+      return{ex1,ey1,exMin,eyMin,ea,e1x:Math.max(ex1,exMin,ea),e1y:Math.max(ey1,eyMin,ea)};
+    },
+
+    forces(inp){
+      return{
+        Nd:inp.gn*inp.gg*inp.Nk,
+        Mdx:inp.gg*inp.Mkx,Mdy:inp.gg*inp.Mky,
+        Vdx:inp.gg*inp.Vkx,Vdy:inp.gg*inp.Vky
+      };
+    },
+
+    secondOrder(inp,sec,mat,forces){
+      const Nd=forces.Nd;
+      const nu=Nd/(sec.Ac*mat.fcd*0.1);
+      const h=sec.h/100,b=sec.b/100,le=inp.le;
+      const invRx=Math.min(0.005/(h*(nu+0.5)),0.005/h);
+      const invRy=Math.min(0.005/(b*(nu+0.5)),0.005/b);
+      const M2dx=Nd*le*le/10*invRx,M2dy=Nd*le*le/10*invRy;
+      return{M2dx,M2dy,Mtotx:forces.Mdx+M2dx,Mtoty:forces.Mdy+M2dy,invRx,invRy,nu};
+    },
+
+    profile(inp,sec,mat,forces,second){
+      const n=20,z=[],M1=[],M2=[],Mt=[],V=[],Ns=[],d=[],curv=[];
+      const H=inp.l,Nd=forces.Nd,M1x=forces.Mdx,M2x=second.M2dx;
+      for(let i=0;i<=n;i++){
+        const t=i/n;
+        z.push(t*H);
+        const m1=M1x*(1-4*t*(1-t));
+        const m2=M2x*Math.sin(Math.PI*t);
+        M1.push(m1);M2.push(m2);Mt.push(m1+m2);
+        V.push(t<0.5?-M1x/H:M1x/H);
+        Ns.push(Nd);
+        const dmax=second.invRx*H*H/(Math.PI*Math.PI)*1000;
+        d.push(dmax*Math.sin(Math.PI*t));
+        curv.push(second.invRx*Math.sin(Math.PI*t));
+      }
+      return{z,M1,M2,Mt,V,Ns,d,curv};
+    },
+
+    interaction(inp,sec,mat,reinf){
+      const{b,h}=sec,{fcd,fyd,ecu,ec2}=mat;
+      const Es=210000;
+      const d1=inp.cnom/10+inp.dt/10+inp.dl/20;
+      const d2=h-d1,As1=reinf.As/2,As2=reinf.As/2;
+      const Nrd_arr=[],Mrd_arr=[];
+      for(let i=0;i<=60;i++){
+        const x=0.05+(h*1.6-0.05)*i/60;
+        const eps_s1=ecu*(x-d1)/x,eps_s2=ecu*(d2-x)/x;
+        const sig_s1=Math.max(-fyd,Math.min(fyd,eps_s1*Es/1000));
+        const sig_s2=Math.max(-fyd,Math.min(fyd,-eps_s2*Es/1000));
+        const Rc=0.85*fcd*b*0.8*x/10;
+        const Rs1=sig_s1*As1/10,Rs2=sig_s2*As2/10;
+        const Nrd=Rc+Rs1+Rs2;
+        const yc=h/2-0.4*x;
+        const Mrd=Rc*yc/100+Rs1*(h/2-d1)/100-Rs2*(d2-h/2)/100;
+        if(isFinite(Nrd)&&isFinite(Mrd)){Nrd_arr.push(Nrd);Mrd_arr.push(Mrd);}
+      }
+      return{N:Nrd_arr,M:Mrd_arr};
+    },
+
+    shear(inp,sec,mat,forces){
+      const{Vdx,Vdy}=forces;
+      const{b,h}=sec;
+      const d=h-(inp.cnom/10+inp.dt/10+inp.dl/20);
+      const alphaV2=1-inp.fck/250;
+      const VRd2=0.27*alphaV2*mat.fcd*b*d/10;
+      const fctd=0.15*Math.pow(inp.fck,2/3);
+      const Vc=0.6*fctd*b*d/10;
+      const Vsd_max=Math.max(Vdx,Vdy);
+      return{VRd2,Vc,Vsd_max,ok:Vsd_max<=VRd2,alphaV2,fctd};
+    },
+
+    alphaParameter(inp){
+      const Htot=inp.Htot,Nk_tot=inp.Nk_tot,sumEI=inp.sumEI;
+      let alpha=NaN;
+      if(sumEI>0&&Htot>0&&Nk_tot>0){alpha=Htot*Math.sqrt(Nk_tot/sumEI);}
+      const n=Math.max(1,Math.round(inp.n_niveis));
+      let alpha1;
+      if(n<=3) alpha1=0.2+0.1*n;
+      else alpha1=0.6;
+      if(inp.tipo_contravent==='parede'&&n>=4) alpha1=0.7;
+      if(inp.tipo_contravent==='portico'&&n>=4) alpha1=0.5;
+      const nosFixos=alpha<alpha1;
+      return{alpha,alpha1,n,nosFixos,ok:nosFixos};
+    },
+
+    gammaZ(inp){
+      const{dMtot,M1tot}=inp;
+      if(M1tot<=0)return{gz:NaN,dMtot,M1tot,ampl:NaN,classe:'—'};
+      const gz=1/(1-dMtot/M1tot);
+      const ampl=0.95*gz;
+      let classe;
+      if(gz<=1.10)classe='Nós fixos (2ª ordem global ≤ 10%)';
+      else if(gz<=1.30)classe='Nós móveis (2ª ordem global > 10%)';
+      else classe='γz > 1,30 — método simplificado não se aplica';
+      return{gz,dMtot,M1tot,ampl,classe};
+    },
+
+    /* P-Δ iterativo — corrigido conforme PDF (IPOG) */
+    pDelta(inp,sec,mat){
+      const Fd_d=inp.Fd_pd*1.4;
+      const Pd_d=inp.Pd_pd*1.4;
+      const l=inp.l_pd;
+      const Eci=mat.Eci*1000;         // MPa → kN/m²
+      const Ic=sec.Ix*1e-8;           // cm⁴ → m⁴
+      const EIsec=0.7*Eci*Ic;         // NBR 6118:2023, 15.7.3
+      const l3=l*l*l;
+
+      // Δ₀ = F_d · l³ / (3·EIsec)
+      const Delta0 = EIsec>0 ? (Fd_d*l3)/(3*EIsec) : 0;
+
+      const iter=[];
+      let M = Fd_d*l;                 // M₁ = F_d · l
+      let prevM = 0;
+      let Delta = Delta0;
+
+      iter.push({n:0, d:Delta, Ff:0, M:M, dM:0, err:0});
+
+      for(let i=1;i<=15;i++){
+        // ΔM_n = P_d · Δ_{n-1}
+        const dM = Pd_d * Delta;
+        M = M + dM;
+        // F_f,d = P_d · Δ_{n-1} / l  (força fictícia de cálculo)
+        const Ff_d = (l>0) ? (Pd_d * Delta / l) : 0;
+        // Δ_n = F_f,d · l³ / (3·EIsec)
+        const Delta_new = EIsec>0 ? (Ff_d*l3)/(3*EIsec) : 0;
+        const err = prevM>0 ? Math.abs(M-prevM)/M*100 : 0;
+
+        iter.push({n:i, d:Delta, Ff:Ff_d/1.4, M:M, dM:dM, err:err});
+
+        prevM = M;
+        Delta = Delta_new;
+        if(err>0 && err<0.01) break;
+        if(Delta < 1e-12) break;
+      }
+
+      return{iter, finalM:M, EIsec, Fd:Fd_d, Pd:Pd_d, l, Delta0};
+    },
+
+    verification(inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha){
+      const checks=[];
+      const okGeo=inp.b>=19&&inp.h>=19;
+      checks.push({nome:'Dimensão mínima (≥19 cm)',ref:'NBR 6118:2023, 13.2.3',valor:`${inp.b} × ${inp.h} cm`,ok:okGeo});
+      const cMin={I:20,II:25,III:35,IV:45}[inp.caa];
+      checks.push({nome:'Cobrimento nominal',ref:'NBR 6118:2023, Tabela 7.2',valor:`c_nom = ${inp.cnom} mm (CAA ${inp.caa}: ≥${cMin} mm)`,ok:inp.cnom>=cMin});
+      const As_min=Math.max(0.15*forces.Nd/(mat.fyd/10),0.004*sec.Ac);
+      checks.push({nome:'A_s,min',ref:'NBR 6118:2023, 17.3.5.3.1',valor:`A_s = ${reinf.As.toFixed(2)} / min = ${As_min.toFixed(2)} cm²`,ok:reinf.As>=As_min});
+      const As_max=0.08*sec.Ac;
+      checks.push({nome:'A_s,max (8%·Ac)',ref:'NBR 6118:2023, 17.3.5.3.1',valor:`A_s = ${reinf.As.toFixed(2)} / max = ${As_max.toFixed(2)} cm²`,ok:reinf.As<=As_max});
+      const rho=reinf.As/sec.Ac*100;
+      checks.push({nome:'Taxa ρ',ref:'0.4–4%',valor:`ρ = ${rho.toFixed(2)} %`,ok:rho>=0.4&&rho<=4.0});
+      const okL=slen.lmax<=90;
+      checks.push({nome:'Índice de esbeltez λ ≤ 90',ref:'NBR 6118:2023, 15.8.1',valor:`λ = ${slen.lmax.toFixed(1)} (${slen.clas})`,ok:okL});
+      checks.push({nome:'Excentricidade mínima',ref:'NBR 6118:2023, 15.8.3.3.1',valor:`e1x = ${ecc.e1x.toFixed(2)} cm`,ok:ecc.e1x>0});
+      checks.push({nome:'Efeitos de 2ª ordem',ref:'NBR 6118:2023, 15.8.3',valor:`M2d,x = ${second.M2dx.toFixed(2)} kN·m`,ok:slen.lmax<=140});
+      checks.push({nome:'Cortante (biela)',ref:'NBR 6118:2023, 17.4.2.2',valor:`V_Sd = ${shear.Vsd_max.toFixed(2)} / V_Rd2 = ${shear.VRd2.toFixed(2)} kN`,ok:shear.ok});
+      let alphaObs='';
+      if(alpha&&isFinite(alpha.alpha)){
+        alphaObs=alpha.nosFixos?`α = ${alpha.alpha.toFixed(3)} < α₁ = ${alpha.alpha1} → nós fixos`:`α = ${alpha.alpha.toFixed(3)} ≥ α₁ = ${alpha.alpha1} → nós móveis`;
+      }
+      checks.push({nome:'Parâmetro de instabilidade α',ref:'NBR 6118:2023, 15.5.2',valor:isFinite(alpha?.alpha)?`α = ${alpha.alpha.toFixed(3)} / α₁ = ${alpha.alpha1}`:'—',ok:alpha?alpha.ok:true,obs:alphaObs});
+      let gzObs='';
+      if(isFinite(gz.gz)){
+        if(gz.gz<=1.10) gzObs='γz ≤ 1,10 — nós fixos';
+        else if(gz.gz<=1.30) gzObs='1,10 < γz ≤ 1,30 — nós móveis';
+        else gzObs='γz > 1,30 — método simplificado não aplicável';
+      }
+      checks.push({nome:'Estabilidade global γz',ref:'NBR 6118:2023, 15.5.3',valor:`γz = ${isFinite(gz.gz)?gz.gz.toFixed(3):'—'}`,ok:isFinite(gz.gz)&&gz.gz<=1.30,obs:gzObs});
+      const util=engineInteractionUtil(inp,sec,mat,reinf,forces);
+      checks.push({nome:'Índice de utilização (N-M)',ref:'—',valor:`Sd/Rd = ${util.util.toFixed(3)}`,ok:util.ok});
+      return{checks,As_min,As_max,rho,util};
+    }
+  };
+
+  function engineInteractionUtil(inp,sec,mat,reinf,forces){
+    const crv=Engine.interaction(inp,sec,mat,reinf);
+    const Nd=forces.Nd,Md=forces.Mdx;
+    if(!crv.N.length)return{util:NaN,ok:false,capN:0,capM:0,crv};
+    let bestDist=Infinity,bestCapN=0,bestCapM=0;
+    for(let i=0;i<crv.N.length;i++){
+      const d=Math.hypot(crv.N[i]-Nd,crv.M[i]-Md);
+      if(d<bestDist){bestDist=d;bestCapN=crv.N[i];bestCapM=crv.M[i];}
+    }
+    const utilN=bestCapN!==0?Math.abs(Nd/bestCapN):0;
+    const utilM=bestCapM!==0?Math.abs(Md/bestCapM):0;
+    const util=Math.max(utilN,utilM);
+    return{util,ok:util<=1.0,capN:bestCapN,capM:bestCapM,crv};
+  }
+
+  /* SVG SEÇÃO — barras distribuídas nas 4 faces */
+  function renderSvgSection(targetId,inp,sec){
+    const svg=document.getElementById(targetId);if(!svg)return;
+    const vb=340,cx=vb/2,cy=vb/2;
+    const maxDim=Math.max(inp.b,inp.h);
+    const scale=240/maxDim;
+    const w=inp.b*scale,hgt=inp.h*scale;
+    const x0=cx-w/2,y0=cy-hgt/2;
+    const cCover=(inp.cnom/10)*scale;
+    const dtPx=Math.max(2,inp.dt/10*scale);
+    const dlPx=Math.max(3,inp.dl/10*scale);
+    const xL=x0+cCover+dlPx/2,xR=x0+w-cCover-dlPx/2;
+    const yT=y0+cCover+dlPx/2,yB=y0+hgt-cCover-dlPx/2;
+    const nb=Math.max(4,Math.round(inp.nb));
+    const barras=[[xL,yT],[xR,yT],[xR,yB],[xL,yB]];
+    const nExtra=nb-4;
+    if(nExtra>0){
+      const fracH=w/(w+hgt);
+      let nH_pair=Math.round(nExtra*fracH);
+      if((nExtra-nH_pair)%2!==0)nH_pair+=1;
+      if(nH_pair%2!==0)nH_pair+=1;
+      let nV_pair=nExtra-nH_pair;
+      if(nV_pair<0){nH_pair=nExtra-(nExtra%2);nV_pair=nExtra-nH_pair;}
+      const nTop=Math.floor(nH_pair/2),nBot=nH_pair-nTop;
+      const nLeft=Math.floor(nV_pair/2),nRight=nV_pair-nLeft;
+      for(let i=1;i<=nTop;i++){const t=i/(nTop+1);barras.push([xL+t*(xR-xL),yT]);}
+      for(let i=1;i<=nBot;i++){const t=i/(nBot+1);barras.push([xL+t*(xR-xL),yB]);}
+      for(let i=1;i<=nLeft;i++){const t=i/(nLeft+1);barras.push([xL,yT+t*(yB-yT)]);}
+      for(let i=1;i<=nRight;i++){const t=i/(nRight+1);barras.push([xR,yT+t*(yB-yT)]);}
+    }
+    let s='';
+    s+=`<defs><marker id="ar" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,3 L6,1 L6,5 Z" fill="#64748b"/></marker></defs>`;
+    s+=`<rect x="${x0}" y="${y0}" width="${w}" height="${hgt}" fill="#e2e8f0" stroke="#0b2e4f" stroke-width="2" rx="2"/>`;
+    s+=`<rect x="${x0+cCover}" y="${y0+cCover}" width="${w-2*cCover}" height="${hgt-2*cCover}" fill="none" stroke="#dc2626" stroke-width="${dtPx}" rx="2"/>`;
+    barras.forEach(([bx,by])=>{s+=`<circle cx="${bx}" cy="${by}" r="${dlPx/2}" fill="#1f6fbf" stroke="#0b2e4f" stroke-width="1"/>`;});
+    s+=`<line x1="${x0}" y1="${y0-12}" x2="${x0+w}" y2="${y0-12}" stroke="#64748b" marker-start="url(#ar)" marker-end="url(#ar)"/>`;
+    s+=`<text x="${cx}" y="${y0-16}" font-size="11" fill="#334155" text-anchor="middle" font-weight="600">b = ${inp.b} cm</text>`;
+    s+=`<line x1="${x0-12}" y1="${y0}" x2="${x0-12}" y2="${y0+hgt}" stroke="#64748b"/>`;
+    s+=`<text x="${x0-16}" y="${cy}" font-size="11" fill="#334155" text-anchor="middle" font-weight="600" transform="rotate(-90 ${x0-16} ${cy})">h = ${inp.h} cm</text>`;
+    s+=`<text x="${vb-10}" y="20" font-size="10" fill="#64748b" text-anchor="end">${nb}Ø${inp.dl}</text>`;
+    svg.innerHTML=s;
+  }
+
+  function renderSvgDeform(inp,sec,mat,forces,second,reinf){
+    const svg=document.getElementById('svg-def');if(!svg)return;
+    const x0=40,x1=300,y0=30,y1=200;
+    const xLN=0.4*sec.h;
+    const eps_top=mat.ecu,eps_bot=-mat.ecu*(sec.h-xLN)/xLN;
+    const d1=inp.cnom/10+inp.dt/10+inp.dl/20;
+    const eps_s1=-mat.ecu*(xLN-d1)/xLN,eps_s2=-mat.ecu*(sec.h-xLN)/xLN;
+    const mapEps=e=>(y0+y1)/2-e/mat.ecu*((y1-y0)/2);
+    let s='';
+    s+=`<line x1="${x0}" y1="${(y0+y1)/2}" x2="${x1}" y2="${(y0+y1)/2}" stroke="#94a3b8" stroke-dasharray="3 3"/>`;
+    s+=`<line x1="${x0}" y1="${mapEps(eps_top)}" x2="${x1}" y2="${mapEps(eps_bot)}" stroke="#0b2e4f" stroke-width="2"/>`;
+    s+=`<circle cx="${x0+(d1/sec.h)*(x1-x0)}" cy="${mapEps(eps_s1)}" r="4" fill="#1f6fbf"/>`;
+    s+=`<circle cx="${x0+((sec.h-d1)/sec.h)*(x1-x0)}" cy="${mapEps(eps_s2)}" r="4" fill="#dc2626"/>`;
+    s+=`<line x1="${x0+(xLN/sec.h)*(x1-x0)}" y1="${y0-5}" x2="${x0+(xLN/sec.h)*(x1-x0)}" y2="${y1+5}" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    s+=`<text x="${x0+(xLN/sec.h)*(x1-x0)+4}" y="${y0-8}" font-size="10" fill="#16a34a" font-weight="600">LN</text>`;
+    s+=`<text x="${x0}" y="${y1+20}" font-size="10" fill="#64748b">0 (comprimida)</text>`;
+    s+=`<text x="${x1-70}" y="${y1+20}" font-size="10" fill="#64748b">h (tracionada)</text>`;
+    s+=`<text x="${x0}" y="${y0-12}" font-size="11" fill="#0b2e4f" font-weight="600">ε [‰]</text>`;
+    svg.innerHTML=s;
+  }
+
+  function chartAvailable(){return typeof Chart!=='undefined';}
+
+  function makeChart(id,cfg){
+    const canvas=document.getElementById(id);if(!canvas)return null;
+    if(canvas.offsetWidth===0||canvas.offsetHeight===0){state.pendingCharts[id]=cfg;return null;}
+    if(!chartAvailable()){
+      const wrap=canvas.parentElement;
+      if(wrap)wrap.innerHTML='<div class="alert warn" style="margin:0;">Biblioteca de gráficos não carregada.</div>';
+      return null;
+    }
+    if(state.charts[id]){try{state.charts[id].destroy();}catch(e){}delete state.charts[id];}
+    try{
+      const chart=new Chart(canvas,cfg);
+      state.charts[id]=chart;
+      requestAnimationFrame(()=>{try{chart.resize();}catch(e){}});
+      return chart;
+    }catch(e){console.error('chart',id,e);return null;}
+  }
+
+  function flushPendingCharts(){
+    Object.keys(state.pendingCharts).forEach(id=>{
+      const canvas=document.getElementById(id);
+      if(canvas&&canvas.offsetWidth>0&&canvas.offsetHeight>0){
+        const cfg=state.pendingCharts[id];delete state.pendingCharts[id];makeChart(id,cfg);
+      }
+    });
+  }
+
+  function renderCharts(inp,sec,mat,forces,second,slen,ecc,prof,crv,gz,alpha){
+    if(!chartAvailable()){
+      if(!state._chartRetry){state._chartRetry=true;setTimeout(()=>{state._chartRetry=false;if(chartAvailable())recalc();},1500);}
+      return;
+    }
+    const crvData=(crv&&crv.N&&crv.M)?crv.N.map((n,i)=>({x:Math.abs(crv.M[i]||0),y:n})).filter(p=>isFinite(p.x)&&isFinite(p.y)):[];
+    makeChart('chart-nm',{type:'scatter',data:{datasets:[
+      {label:'Curva N-M (Rd)',data:crvData,showLine:true,borderColor:'#0b2e4f',backgroundColor:'rgba(11,46,79,0.1)',borderWidth:2,pointRadius:0,fill:false,tension:0.1},
+      {label:'Solicitação (Sd)',data:[{x:Math.abs(forces.Mdx||0),y:forces.Nd||0}],backgroundColor:'#dc2626',pointRadius:8,pointStyle:'triangle'}
+    ]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'M [kN·m]'},type:'linear'},y:{title:{display:true,text:'N [kN]'}}}}});
+
+    makeChart('chart-m',{type:'line',data:{labels:prof.z.map(z=>z.toFixed(2)),datasets:[
+      {label:'M 1ª ordem',data:prof.M1,borderColor:'#1f6fbf',tension:.3,pointRadius:0,borderWidth:2},
+      {label:'M 2ª ordem',data:prof.M2,borderColor:'#d97706',tension:.3,pointRadius:0,borderWidth:2},
+      {label:'M total',data:prof.Mt,borderColor:'#dc2626',borderWidth:2.5,tension:.3,pointRadius:0}
+    ]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'Altura z [m]'}},y:{title:{display:true,text:'M [kN·m]'}}}}});
+
+    makeChart('chart-v',{type:'line',data:{labels:prof.z.map(z=>z.toFixed(2)),datasets:[{label:'V [kN]',data:prof.V,borderColor:'#16a34a',tension:.2,pointRadius:0,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'Altura z [m]'}},y:{title:{display:true,text:'V [kN]'}}}}});
+
+    makeChart('chart-n',{type:'line',data:{labels:prof.z.map(z=>z.toFixed(2)),datasets:[{label:'N [kN]',data:prof.Ns,borderColor:'#0b2e4f',tension:.2,pointRadius:0,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'Altura z [m]'}},y:{title:{display:true,text:'N [kN]'}}}}});
+
+    makeChart('chart-d',{type:'line',data:{labels:prof.z.map(z=>z.toFixed(2)),datasets:[{label:'δ [mm]',data:prof.d,borderColor:'#7c3aed',tension:.3,pointRadius:0,fill:true,backgroundColor:'rgba(124,58,237,.1)',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'Altura z [m]'}},y:{title:{display:true,text:'δ [mm]'}}}}});
+
+    makeChart('chart-k',{type:'line',data:{labels:prof.z.map(z=>z.toFixed(2)),datasets:[{label:'1/r [1/m]',data:prof.curv,borderColor:'#0891b2',tension:.3,pointRadius:0,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'Altura z [m]'}},y:{title:{display:true,text:'1/r [1/m]'}}}}});
+
+    const nPav=Math.max(1,Math.round(inp.npav));
+    const gzLabels=[],gzData=[];
+    for(let i=1;i<=nPav;i++){gzLabels.push('Pav '+i);gzData.push(gz.gz);}
+    makeChart('chart-gz',{type:'bar',data:{labels:gzLabels,datasets:[{label:'γz',data:gzData,backgroundColor:'#1f6fbf'}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{y:{title:{display:true,text:'γz'},suggestedMin:1.0,suggestedMax:1.4}}}});
+
+    const dTopo=inp.dtopo;
+    const glLabels=[],glDx=[];
+    for(let i=0;i<=nPav;i++){glLabels.push((i*inp.l).toFixed(1));glDx.push(dTopo*(i/nPav)*(i/nPav));}
+    makeChart('chart-global',{type:'line',data:{labels:glLabels,datasets:[{label:'δx [mm]',data:glDx,borderColor:'#dc2626',tension:.3,pointRadius:2,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'Altura acumulada [m]'}},y:{title:{display:true,text:'δ [mm]'}}}}});
+  }
+
+  function renderTables(inp,sec,mat,reinf,forces,slen,ecc,second,shear,verif,gz,alpha){
+    document.getElementById('tbl-geo').innerHTML=`
+      <tr><th>Propriedade</th><th>Valor</th><th>Unidade</th></tr>
+      <tr><td>A_c</td><td class="num">${sec.Ac.toFixed(2)}</td><td>cm²</td></tr>
+      <tr><td>I_x</td><td class="num">${sec.Ix.toFixed(2)}</td><td>cm⁴</td></tr>
+      <tr><td>I_y</td><td class="num">${sec.Iy.toFixed(2)}</td><td>cm⁴</td></tr>
+      <tr><td>i_x</td><td class="num">${sec.ix.toFixed(3)}</td><td>cm</td></tr>
+      <tr><td>i_y</td><td class="num">${sec.iy.toFixed(3)}</td><td>cm</td></tr>`;
+    document.getElementById('tbl-mat').innerHTML=`
+      <tr><th>Parâmetro</th><th>Valor</th><th>Unidade</th></tr>
+      <tr><td>f_cd</td><td class="num">${mat.fcd.toFixed(2)}</td><td>MPa</td></tr>
+      <tr><td>f_yd</td><td class="num">${mat.fyd.toFixed(2)}</td><td>MPa</td></tr>
+      <tr><td>E_ci</td><td class="num">${mat.Eci.toFixed(0)}</td><td>MPa</td></tr>
+      <tr><td>E_cs</td><td class="num">${mat.Ecs.toFixed(0)}</td><td>MPa</td></tr>
+      <tr><td>ε_c2</td><td class="num">${mat.ec2.toFixed(2)}</td><td>‰</td></tr>
+      <tr><td>ε_cu</td><td class="num">${mat.ecu.toFixed(2)}</td><td>‰</td></tr>`;
+    document.getElementById('tbl-nlf').innerHTML=`
+      <tr><th>Elemento</th><th>(EI)sec</th></tr>
+      <tr><td>Lajes</td><td>0,3 · Eci · Ic</td></tr>
+      <tr><td>Vigas (As'≠As)</td><td>0,4 · Eci · Ic</td></tr>
+      <tr><td>Vigas (As'=As)</td><td>0,5 · Eci · Ic</td></tr>
+      <tr><td>Pilares</td><td>0,8 · Eci · Ic</td></tr>`;
+    const cMin={I:20,II:25,III:35,IV:45}[inp.caa];
+    const cobOk=inp.cnom>=cMin;
+    document.getElementById('cob-status').innerHTML=cobOk
+      ?`<div class="alert ok">Cobrimento OK — c_nom = ${inp.cnom} mm ≥ ${cMin} mm.</div>`
+      :`<div class="alert err">Cobrimento INSUFICIENTE — c_nom = ${inp.cnom} mm < ${cMin} mm.</div>`;
+    document.getElementById('tbl-arm').innerHTML=`
+      <tr><th>Verificação</th><th>Valor</th><th>Situação</th></tr>
+      <tr><td>A_s,ef</td><td class="num">${reinf.As.toFixed(2)} cm²</td><td>—</td></tr>
+      <tr><td>A_s,min</td><td class="num">${verif.As_min.toFixed(2)} cm²</td><td>${reinf.As>=verif.As_min?'<span class="badge ok">OK</span>':'<span class="badge err">NÃO OK</span>'}</td></tr>
+      <tr><td>A_s,max</td><td class="num">${verif.As_max.toFixed(2)} cm²</td><td>${reinf.As<=verif.As_max?'<span class="badge ok">OK</span>':'<span class="badge err">NÃO OK</span>'}</td></tr>
+      <tr><td>Taxa ρ</td><td class="num">${verif.rho.toFixed(2)} %</td><td>${(verif.rho>=0.4&&verif.rho<=4)?'<span class="badge ok">OK</span>':'<span class="badge warn">Atenção</span>'}</td></tr>`;
+    document.getElementById('tbl-esforcos').innerHTML=`
+      <tr><th>Esforço</th><th>Valor</th><th>Unidade</th></tr>
+      <tr><td>N_Sd</td><td class="num">${forces.Nd.toFixed(2)}</td><td>kN</td></tr>
+      <tr><td>M_Sd,x</td><td class="num">${forces.Mdx.toFixed(2)}</td><td>kN·m</td></tr>
+      <tr><td>M_Sd,y</td><td class="num">${forces.Mdy.toFixed(2)}</td><td>kN·m</td></tr>
+      <tr><td>V_Sd,x</td><td class="num">${forces.Vdx.toFixed(2)}</td><td>kN</td></tr>
+      <tr><td>V_Sd,y</td><td class="num">${forces.Vdy.toFixed(2)}</td><td>kN</td></tr>
+      <tr><td>M_2d,x</td><td class="num">${second.M2dx.toFixed(2)}</td><td>kN·m</td></tr>
+      <tr><td>M_2d,y</td><td class="num">${second.M2dy.toFixed(2)}</td><td>kN·m</td></tr>
+      <tr><td>M_tot,x</td><td class="num">${second.Mtotx.toFixed(2)}</td><td>kN·m</td></tr>
+      <tr><td>M_tot,y</td><td class="num">${second.Mtoty.toFixed(2)}</td><td>kN·m</td></tr>`;
+    document.getElementById('tbl-esb').innerHTML=`
+      <tr><th>Parâmetro</th><th>Valor</th></tr>
+      <tr><td>λ_x</td><td class="num">${slen.lx.toFixed(2)}</td></tr>
+      <tr><td>λ_y</td><td class="num">${slen.ly.toFixed(2)}</td></tr>
+      <tr><td>λ_crit (${slen.critico})</td><td class="num">${slen.lmax.toFixed(2)} — ${slen.clas}</td></tr>
+      <tr><td>e1x</td><td class="num">${ecc.ex1.toFixed(2)} cm</td></tr>
+      <tr><td>e1y</td><td class="num">${ecc.ey1.toFixed(2)} cm</td></tr>
+      <tr><td>e_x,min / e_y,min</td><td class="num">${ecc.exMin.toFixed(2)} / ${ecc.eyMin.toFixed(2)} cm</td></tr>`;
+
+    const alphaEl=document.getElementById('alpha-status');
+    if(alphaEl){
+      if(isFinite(alpha.alpha)){
+        alphaEl.innerHTML=`<table>
+          <tr><th>Parâmetro</th><th>Valor</th></tr>
+          <tr><td>H<sub>tot</sub></td><td class="num">${inp.Htot} m</td></tr>
+          <tr><td>N<sub>k,tot</sub></td><td class="num">${inp.Nk_tot} kN</td></tr>
+          <tr><td>ΣE<sub>cs</sub>·I<sub>c</sub></td><td class="num">${inp.sumEI.toExponential(3)} kN·m²</td></tr>
+          <tr><td>n (níveis)</td><td class="num">${alpha.n}</td></tr>
+          <tr><td><b>α</b></td><td class="num"><b>${alpha.alpha.toFixed(4)}</b></td></tr>
+          <tr><td><b>α₁</b></td><td class="num"><b>${alpha.alpha1.toFixed(2)}</b></td></tr>
+        </table>
+        <div class="alert ${alpha.nosFixos?'ok':'warn'}" style="margin-top:8px;">
+          ${alpha.nosFixos?'α < α₁ → <b>NÓS FIXOS</b>':'α ≥ α₁ → <b>NÓS MÓVEIS</b>'}
+        </div>`;
+      }else{
+        alphaEl.innerHTML=`<div class="alert warn">Preencha H<sub>tot</sub>, N<sub>k,tot</sub> e ΣE<sub>cs</sub>I<sub>c</sub>.</div>`;
+      }
+    }
+
+    document.getElementById('gz-status').innerHTML=`<table>
+      <tr><th>Parâmetro</th><th>Valor</th></tr>
+      <tr><td>ΔM<sub>tot,d</sub></td><td class="num">${gz.dMtot.toFixed(2)} kN·m</td></tr>
+      <tr><td>M<sub>1,tot,d</sub></td><td class="num">${gz.M1tot.toFixed(2)} kN·m</td></tr>
+      <tr><td>γ<sub>z</sub></td><td class="num"><b>${isFinite(gz.gz)?gz.gz.toFixed(3):'—'}</b></td></tr>
+      <tr><td>0,95·γ<sub>z</sub></td><td class="num">${isFinite(gz.ampl)?gz.ampl.toFixed(3):'—'}</td></tr>
+    </table>
+    <div class="ref-box" style="margin-top:8px;">
+      γz ≈ 1,00 → 2ª ordem inexistente | γz = 1,10 → 10% | γz = 1,20 → 20%<br>
+      γz ≤ 1,10 → nós fixos | 1,10 &lt; γz ≤ 1,30 → nós móveis | γz &gt; 1,30 → método simplificado não aplicável
+    </div>
+    ${isFinite(gz.gz)?(gz.gz<=1.10?'<div class="alert ok">γz ≤ 1,10 — Nós fixos.</div>'
+      :gz.gz<=1.30?'<div class="alert warn">1,10 &lt; γz ≤ 1,30 — Nós móveis. Majorar horizontais por 0,95·γz.</div>'
+      :'<div class="alert err">γz &gt; 1,30 — Análise de 2ª ordem rigorosa necessária.</div>'):''}`;
+
+    document.getElementById('tbl-verif').innerHTML=`
+      <tr><th style="width:55%">Verificação</th><th>Ref.</th><th>Valor</th><th>Status</th></tr>
+      ${verif.checks.map(c=>`<tr>
+        <td>${c.nome}${c.obs?`<br><small style="color:#64748b;font-size:10px;">${c.obs}</small>`:''}</td>
+        <td style="font-size:10px;color:#64748b;">${c.ref||''}</td>
+        <td class="num">${c.valor||''}</td>
+        <td>${c.ok===true?'<span class="badge ok">OK</span>':c.ok===false?'<span class="badge err">NÃO OK</span>':'<span class="badge warn">—</span>'}</td>
+      </tr>`).join('')}`;
+    document.getElementById('tbl-results').innerHTML=`
+      <tr><th>Parâmetro</th><th>Resultado</th><th>Unidade</th><th>Situação</th></tr>
+      ${resultRow('A_c',sec.Ac,'cm²',true)}
+      ${resultRow('A_s,ef',reinf.As,'cm²',reinf.As>=verif.As_min)}
+      ${resultRow('ρ',verif.rho,'%',verif.rho>=0.4&&verif.rho<=4)}
+      ${resultRow('λ crítico',slen.lmax,'—',slen.lmax<=90)}
+      ${resultRow('M_2d,x',second.M2dx,'kN·m',true)}
+      ${resultRow('M_tot,x',second.Mtotx,'kN·m',true)}
+      ${resultRow('N_Sd',forces.Nd,'kN',true)}
+      ${resultRow('V_Sd',shear.Vsd_max,'kN',shear.ok)}
+      ${resultRow('V_Rd2',shear.VRd2,'kN',true)}
+      ${resultRow('α',alpha.alpha,'—',alpha.nosFixos)}
+      ${resultRow('γz',gz.gz,'—',gz.gz<=1.30)}
+      ${resultRow('Utilização',verif.util.util,'—',verif.util.ok)}`;
+  }
+  function resultRow(name,val,unit,ok){
+    const v=typeof val==='number'?(isFinite(val)?val.toFixed(unit==='%'||unit==='—'?3:2):'—'):val;
+    return `<tr><td>${name}</td><td class="num">${v}</td><td>${unit}</td><td>${ok?'<span class="badge ok">OK</span>':'<span class="badge err">NÃO OK</span>'}</td></tr>`;
+  }
+
+  function renderDashboard(inp,sec,mat,reinf,forces,slen,ecc,second,verif,gz,shear,alpha){
+    document.getElementById('dash-info').innerHTML=`<b>${inp.obra||'—'}</b> · ${inp.pav||'—'} · Pilar <b>${inp.pilar||'—'}</b> · ${inp.b}×${inp.h} cm · fck=${inp.fck} MPa · ${inp.nb}Ø${inp.dl}`;
+    const util=verif.util.util;
+    const msd=Math.max(forces.Mdx,forces.Mdy);
+    const situacao=util<=1.0?'ATENDE':'NÃO ATENDE';
+    const situacaoClass=util<=1.0?'ok':'err';
+    document.getElementById('dash-metrics').innerHTML=`
+      ${metric('N_Sd',forces.Nd.toFixed(1),'kN','info')}
+      ${metric('M_Sd',msd.toFixed(1),'kN·m','info')}
+      ${metric('λ',slen.lmax.toFixed(1),'',slen.lmax<=90?'ok':'warn')}
+      ${metric('α / α₁',isFinite(alpha.alpha)?alpha.alpha.toFixed(3):'—','',alpha.nosFixos?'ok':'warn')}
+      ${metric('γz',isFinite(gz.gz)?gz.gz.toFixed(3):'—','',gz.gz<=1.10?'ok':gz.gz<=1.30?'warn':'err')}
+      ${metric('Utilização',util.toFixed(3),'',util<=1?'ok':'err')}
+      ${metric('Situação',situacao,'',situacaoClass)}`;
+    const alerts=[];
+    if(slen.lmax>90)alerts.push(['warn',`Esbeltez elevada (λ = ${slen.lmax.toFixed(1)}).`]);
+    if(second.M2dx/Math.max(forces.Mdx,0.01)>0.5)alerts.push(['warn','Momento de 2ª ordem significativo.']);
+    if(reinf.As<verif.As_min)alerts.push(['err',`A_s abaixo do mínimo (${verif.As_min.toFixed(2)} cm²).`]);
+    if(reinf.As>verif.As_max)alerts.push(['err','A_s acima do máximo (8% Ac).']);
+    if(!verif.util.ok)alerts.push(['err','Flexão composta NÃO atendida.']);
+    if(util>1.0)alerts.push(['err','Índice de utilização > 1,00.']);
+    if(gz.gz>1.30)alerts.push(['err','γz > 1,30 — método simplificado não aplicável.']);
+    if(!alpha.nosFixos)alerts.push(['warn',`α = ${alpha.alpha.toFixed(3)} ≥ α₁ = ${alpha.alpha1} → nós móveis.`]);
+    if(shear&&!shear.ok)alerts.push(['err','Verificação ao cortante NÃO atendida.']);
+    alerts.push(['info','Método do pilar-padrão com curvatura aproximada (NBR 6118:2023, 15.8.3.3.2).']);
+    document.getElementById('dash-alerts').innerHTML=alerts.map(([t,m])=>`<div class="alert ${t}">${m}</div>`).join('');
+    let concl;
+    if(util<=1.0&&verif.checks.every(c=>c.ok!==false)){
+      concl=`<div class="alert ok"><b>Conclusão:</b> Pilar verificado para as condições informadas.</div>`;
+    }else if(!verif.util.ok){
+      concl=`<div class="alert err"><b>Conclusão:</b> Pilar NÃO ATENDE aos critérios implementados.</div>`;
+    }else{
+      concl=`<div class="alert warn"><b>Conclusão:</b> Pilar atende parcialmente, com alertas.</div>`;
+    }
+    document.getElementById('dash-conclusion').innerHTML=concl;
+  }
+  function metric(label,value,unit,status){
+    const st=status==='ok'?'ok':status==='warn'?'warn':status==='err'?'err':'info';
+    const txt=st==='ok'?'✓':st==='warn'?'⚠':st==='err'?'✗':'';
+    return `<div class="metric ${st}"><div class="label">${label}</div><div class="value">${value} <small>${unit}</small></div><div class="status ${st}">${txt}</div></div>`;
+  }
+
+  function recalc(){
+    try{
+      const inp=collectInputs();state.inputs=inp;
+      const sec=Engine.section(inp),mat=Engine.materials(inp),reinf=Engine.reinforcement(inp);
+      const forces=Engine.forces(inp);
+      const slen=Engine.slenderness(inp,sec);
+      const ecc=Engine.eccentricities(inp,sec,forces);
+      const second=Engine.secondOrder(inp,sec,mat,forces);
+      const shear=Engine.shear(inp,sec,mat,forces);
+      const gz=Engine.gammaZ(inp);
+      const alpha=Engine.alphaParameter(inp);
+      const interaction=Engine.interaction(inp,sec,mat,reinf);
+      const verif=Engine.verification(inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha);
+      const prof=Engine.profile(inp,sec,mat,forces,second);
+      state.results={inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha,verif,prof,interaction};
+
+      renderSvgSection('svg-secao',inp,sec);
+      renderSvgSection('svg-secao2',inp,sec);
+      renderSvgDeform(inp,sec,mat,forces,second,reinf);
+      renderTables(inp,sec,mat,reinf,forces,slen,ecc,second,shear,verif,gz,alpha);
+      renderDashboard(inp,sec,mat,reinf,forces,slen,ecc,second,verif,gz,shear,alpha);
+      renderCharts(inp,sec,mat,forces,second,slen,ecc,prof,interaction,gz,alpha);
+
+      document.getElementById('in_asef').value=reinf.As.toFixed(2);
+      flushPendingCharts();
+    }catch(e){console.error('Erro recalc:',e);}
+  }
+
+  function saveProject(){
+    const proj={version:1,data:collectInputs(),timestamp:new Date().toISOString()};
+    localStorage.setItem('apavan_pilar_projeto_atual',JSON.stringify(proj));
+    alert('Projeto salvo.');
+  }
+  function newProject(){
+    if(!confirm('Novo projeto?'))return;
+    localStorage.removeItem('apavan_pilar_projeto_atual');location.reload();
+  }
+  function exportJSON(){
+    const proj={version:1,data:collectInputs(),timestamp:new Date().toISOString()};
+    const blob=new Blob([JSON.stringify(proj,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;
+    a.download=`apavan_pilares_${(proj.data.pilar||'P1')}_${Date.now()}.json`;
+    a.click();URL.revokeObjectURL(url);
+  }
+  function importJSON(ev){
+    const file=ev.target.files[0];if(!file)return;
+    const r=new FileReader();
+    r.onload=()=>{
+      try{
+        const p=JSON.parse(r.result),d=p.data||p;
+        Object.keys(d).forEach(k=>{const el=document.getElementById('in_'+k);if(el)el.value=d[k];});
+        recalc();alert('Projeto importado.');
+      }catch(e){alert('Arquivo inválido.');}
+    };
+    r.readAsText(file);
+  }
+  function loadFromStorage(){
+    const raw=localStorage.getItem('apavan_pilar_projeto_atual');if(!raw)return;
+    try{
+      const p=JSON.parse(raw),d=p.data||p;
+      Object.keys(d).forEach(k=>{const el=document.getElementById('in_'+k);if(el)el.value=d[k];});
+    }catch(e){}
+  }
+
+  function switchTab(t){
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.add('hidden'));
+    const panel=document.getElementById('tab-'+t);if(panel)panel.classList.remove('hidden');
+    document.querySelectorAll('nav.tabs button,.bottom-nav button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll(`[data-tab="${t}"]`).forEach(b=>b.classList.add('active'));
+    window.scrollTo({top:0,behavior:'smooth'});
+    requestAnimationFrame(()=>{requestAnimationFrame(()=>{setTimeout(()=>{recalc();flushPendingCharts();
+      Object.values(state.charts).forEach(c=>{if(c&&typeof c.resize==='function'){try{c.resize();}catch(e){}}});
+    },80);});});
+  }
+  function bindTabs(){
+    document.querySelectorAll('[data-tab]').forEach(btn=>{
+      btn.addEventListener('click',()=>switchTab(btn.dataset.tab));
+    });
+  }
+  function bindPills(){
+    document.querySelectorAll('[data-mode]').forEach(p=>{
+      p.addEventListener('click',()=>{document.querySelectorAll('[data-mode]').forEach(x=>x.classList.remove('active'));p.classList.add('active');state.mode=p.dataset.mode;});
+    });
+    document.querySelectorAll('[data-nivel]').forEach(p=>{
+      p.addEventListener('click',()=>{document.querySelectorAll('[data-nivel]').forEach(x=>x.classList.remove('active'));p.classList.add('active');state.nivel=p.dataset.nivel;});
+    });
+  }
+  function bindInputs(){
+    document.querySelectorAll('input,select').forEach(el=>{
+      el.addEventListener('input',()=>recalc());
+      el.addEventListener('change',()=>recalc());
+    });
+    document.getElementById('in_classe')?.addEventListener('change',e=>{
+      const v=e.target.value.replace('C','');
+      document.getElementById('in_fck').value=v;recalc();
+    });
+  }
+
+  function init(){
+    document.getElementById('in_data').value=new Date().toISOString().slice(0,10);
+    bindTabs();bindPills();bindInputs();loadFromStorage();recalc();
+    window.addEventListener('resize',()=>{
+      clearTimeout(state._resizeT);
+      state._resizeT=setTimeout(()=>{Object.values(state.charts).forEach(c=>{try{c.resize();}catch(e){}});},200);
+    });
+    if('serviceWorker' in navigator){
+      const swCode=`self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));self.addEventListener('fetch',e=>{e.respondWith(caches.open('apavan-pilares-v1').then(cache=>cache.match(e.request).then(r=>r||fetch(e.request).then(resp=>{if(resp&&resp.status===200&&e.request.method==='GET'){cache.put(e.request,resp.clone());}return resp;}).catch(()=>r))));});`;
+      try{const blob=new Blob([swCode],{type:'application/javascript'});const url=URL.createObjectURL(blob);navigator.serviceWorker.register(url).catch(()=>{});}catch(e){}
+    }
+  }
+
+  /* EXPORTA Engine e state para uso externo (botão P-Δ, relatório) */
+  return{init,recalc,saveProject,newProject,exportJSON,importJSON,Engine,get state(){return state;}};
+})();
+
+/* ============================================================
+   HANDLER P-Δ (fora do IIFE para acessar App.Engine)
+   ============================================================ */
+window.runPDelta=function(){
+  try{
+    const r=App.state.results;
+    if(!r){document.getElementById('pd-status').innerHTML='<div class="alert warn">Calcule o pilar primeiro.</div>';return;}
+    const res=App.Engine.pDelta(r.inp,r.sec,r.mat);
+    let html=`<table>
+      <tr><th>Iter.</th><th>Δ<sub>n-1</sub> [m]</th><th>F<sub>f</sub> [kN]</th><th>ΔM [kN·m]</th><th>M [kN·m]</th><th>Erro [%]</th></tr>`;
+    res.iter.forEach(it=>{
+      html+=`<tr><td>${it.n}</td>
+        <td class="num">${it.d.toExponential(4)}</td>
+        <td class="num">${it.Ff.toFixed(3)}</td>
+        <td class="num">${it.dM.toFixed(3)}</td>
+        <td class="num"><b>${it.M.toFixed(3)}</b></td>
+        <td class="num">${it.err.toFixed(4)}</td>
+      </tr>`;
+    });
+    html+=`</table>
+      <div class="alert ok" style="margin-top:8px;">
+        <b>Momento final na base (P-Δ): M = ${res.finalM.toFixed(3)} kN·m</b><br>
+        <b>Deslocamento inicial Δ₀ = ${res.Delta0.toExponential(4)} m = ${(res.Delta0*1000).toFixed(4)} mm</b><br>
+        Iterações: ${res.iter.length-1} | EI<sub>sec</sub> = ${res.EIsec.toExponential(4)} kN·m²
+      </div>
+      <div class="chart-wrap" style="height:240px;margin-top:10px;"><canvas id="chart-pdelta"></canvas></div>`;
+    document.getElementById('pd-status').innerHTML=html;
+
+    if(typeof Chart!=='undefined'){
+      const labels=res.iter.map(it=>'It '+it.n);
+      const dataM=res.iter.map(it=>it.M);
+      const dataDelta=res.iter.map(it=>it.d*1000);
+      if(window.__pdChart){try{window.__pdChart.destroy();}catch(e){}}
+      const canvas=document.getElementById('chart-pdelta');
+      if(canvas){
+        window.__pdChart=new Chart(canvas,{
+          type:'line',
+          data:{labels,datasets:[
+            {label:'M [kN·m]',data:dataM,borderColor:'#dc2626',backgroundColor:'rgba(220,38,38,.1)',tension:.2,pointRadius:3,borderWidth:2,yAxisID:'y'},
+            {label:'Δ [mm]',data:dataDelta,borderColor:'#1f6fbf',backgroundColor:'rgba(31,111,191,.1)',tension:.2,pointRadius:3,borderWidth:2,yAxisID:'y1'}
+          ]},
+          options:{responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{position:'bottom'}},
+            scales:{
+              y:{type:'linear',position:'left',title:{display:true,text:'M [kN·m]'}},
+              y1:{type:'linear',position:'right',title:{display:true,text:'Δ [mm]'},grid:{drawOnChartArea:false}}
+            }
+          }
+        });
+      }
+    }
+  }catch(e){
+    console.error('P-Δ erro:',e);
+    document.getElementById('pd-status').innerHTML='<div class="alert err">Erro ao executar P-Δ: '+e.message+'</div>';
+  }
+};
+
+/* ============================================================
+   MEMORIAL
+   ============================================================ */
+const Report=(()=>{
+  function generate(){
+    const r=App.state.results;
+    if(!r){document.getElementById('memorial-out').innerHTML='<div class="alert err">Sem dados.</div>';return;}
+    const{inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha,verif}=r;
+    const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+    const html=`
+      <div style="font-family:Arial,sans-serif;font-size:12px;line-height:1.5;">
+        <h2 style="color:#0b2e4f;">MEMORIAL DE CÁLCULO — APavan Pilares</h2>
+        <p><b>Norma:</b> ABNT NBR 6118:2023.</p>
+        <h3>1. Identificação</h3>
+        <table>
+          <tr><td>Obra</td><td>${esc(inp.obra||'—')}</td></tr>
+          <tr><td>Pavimento</td><td>${esc(inp.pav||'—')}</td></tr>
+          <tr><td>Pilar</td><td>${esc(inp.pilar||'—')}</td></tr>
+          <tr><td>Responsável</td><td>${esc(inp.resp||'—')}</td></tr>
+          <tr><td>CREA</td><td>${esc(inp.crea||'—')}</td></tr>
+          <tr><td>Data</td><td>${esc(inp.data||'—')}</td></tr>
+        </table>
+        <h3>2. Dados de Entrada</h3>
+        <table>
+          <tr><th>Parâmetro</th><th>Valor</th><th>Unid.</th></tr>
+          <tr><td>Seção</td><td>${inp.b} × ${inp.h}</td><td>cm</td></tr>
+          <tr><td>l / l_e</td><td>${inp.l} / ${inp.le}</td><td>m</td></tr>
+          <tr><td>f_ck / f_yk</td><td>${inp.fck} / ${inp.fyk}</td><td>MPa</td></tr>
+          <tr><td>Aço long.</td><td>${inp.nb} Ø ${inp.dl}</td><td>mm</td></tr>
+          <tr><td>Estribos</td><td>Ø ${inp.dt} c/ ${inp.s}</td><td>mm/cm</td></tr>
+          <tr><td>N_k / M_kx / M_ky</td><td>${inp.Nk} / ${inp.Mkx} / ${inp.Mky}</td><td>kN, kN·m</td></tr>
+        </table>
+        <h3>3. Materiais</h3>
+        <table>
+          <tr><td>f_cd = fck/γc</td><td>${mat.fcd.toFixed(2)} MPa</td></tr>
+          <tr><td>f_yd = fyk/γs</td><td>${mat.fyd.toFixed(2)} MPa</td></tr>
+          <tr><td>E_ci</td><td>${mat.Eci.toFixed(0)} MPa</td></tr>
+          <tr><td>E_cs</td><td>${mat.Ecs.toFixed(0)} MPa</td></tr>
+          <tr><td>ε_c2 / ε_cu</td><td>${mat.ec2.toFixed(2)} / ${mat.ecu.toFixed(2)} ‰</td></tr>
+        </table>
+        <h3>4. Esforços de Cálculo (ELU)</h3>
+        <table>
+          <tr><td>N_Sd</td><td>${forces.Nd.toFixed(2)} kN</td></tr>
+          <tr><td>M_Sd,x / M_Sd,y</td><td>${forces.Mdx.toFixed(2)} / ${forces.Mdy.toFixed(2)} kN·m</td></tr>
+          <tr><td>V_Sd,x / V_Sd,y</td><td>${forces.Vdx.toFixed(2)} / ${forces.Vdy.toFixed(2)} kN</td></tr>
+        </table>
+        <h3>5. Esbeltez e Excentricidades</h3>
+        <table>
+          <tr><td>λ_x / λ_y</td><td>${slen.lx.toFixed(2)} / ${slen.ly.toFixed(2)}</td></tr>
+          <tr><td>λ_crit (${slen.critico})</td><td>${slen.lmax.toFixed(2)} (${slen.clas})</td></tr>
+          <tr><td>e1x / e1y</td><td>${ecc.e1x.toFixed(2)} / ${ecc.e1y.toFixed(2)} cm</td></tr>
+        </table>
+        <h3>6. Efeitos de 2ª ordem (Pilar-Padrão)</h3>
+        <p>ν = ${second.nu.toFixed(3)} ; 1/r_x = ${second.invRx.toFixed(6)} m⁻¹ ; 1/r_y = ${second.invRy.toFixed(6)} m⁻¹</p>
+        <p>M_2d,x = ${second.M2dx.toFixed(2)} kN·m ; M_2d,y = ${second.M2dy.toFixed(2)} kN·m</p>
+        <p>M_tot,x = ${second.Mtotx.toFixed(2)} kN·m ; M_tot,y = ${second.Mtoty.toFixed(2)} kN·m</p>
+        <h3>7. Rigidez Aproximada NLF (15.7.3)</h3>
+        <p>Lajes: 0,3·Eci·Ic | Vigas: 0,4 ou 0,5·Eci·Ic | Pilares: 0,8·Eci·Ic</p>
+        <h3>8. Armaduras</h3>
+        <p>A_s,ef = ${reinf.As.toFixed(2)} cm² | A_s,min = ${verif.As_min.toFixed(2)} | A_s,max = ${verif.As_max.toFixed(2)} | ρ = ${verif.rho.toFixed(2)} %</p>
+        <h3>9. Cortante</h3>
+        <p>V_c = ${shear.Vc.toFixed(2)} kN | V_Rd2 = ${shear.VRd2.toFixed(2)} kN | V_Sd,max = ${shear.Vsd_max.toFixed(2)} kN → ${shear.ok?'OK':'NÃO OK'}</p>
+        <h3>10. Parâmetro de Instabilidade α (15.5.2)</h3>
+        <p>α = H_tot · √(N_k,tot / ΣE_cs·I_c) = ${inp.Htot} · √(${inp.Nk_tot} / ${inp.sumEI.toExponential(4)}) = <b>${alpha.alpha.toFixed(4)}</b></p>
+        <p>α₁ = ${alpha.alpha1.toFixed(2)} → ${alpha.nosFixos?'<b>NÓS FIXOS</b>':'<b>NÓS MÓVEIS</b>'}</p>
+        <h3>11. Estabilidade Global — γz (15.5.3)</h3>
+        <p>γz = 1/(1 − ${gz.dMtot}/${gz.M1tot}) = <b>${gz.gz.toFixed(3)}</b></p>
+        <p>Amplificação 0,95·γz = ${gz.ampl.toFixed(3)} — ${gz.classe}</p>
+        <h3>12. Verificações</h3>
+        <table>
+          <tr><th>Verificação</th><th>Ref.</th><th>Valor</th><th>Status</th></tr>
+          ${verif.checks.map(c=>`<tr><td>${c.nome}</td><td>${c.ref||''}</td><td>${c.valor||''}</td><td>${c.ok===true?'OK':c.ok===false?'NÃO OK':'—'}</td></tr>`).join('')}
+        </table>
+        <h3>13. Conclusão</h3>
+        ${verif.util.ok&&verif.checks.every(c=>c.ok!==false)
+          ?'<div class="alert ok"><b>Conclusão:</b> Pilar verificado para as condições de cálculo.</div>'
+          :verif.util.util>1.0
+          ?'<div class="alert err"><b>Conclusão:</b> Pilar NÃO ATENDE aos critérios implementados.</div>'
+          :'<div class="alert warn"><b>Conclusão:</b> Pilar atende parcialmente.</div>'}
+        <hr>
+        <p style="font-size:10px;color:#64748b;">APavan Engenharia e Consultoria · CREA-SC 86959-8 · Tubarão/SC</p>
+      </div>`;
+    document.getElementById('memorial-out').innerHTML=html;
+  }
+  function pdf(){window.print();}
+  return{generate,pdf};
+})();
+
+/* Boot */
+document.addEventListener('DOMContentLoaded',()=>{
+  App.init();
+  setTimeout(()=>App.recalc(),250);
+  setTimeout(()=>{if(typeof Chart!=='undefined'&&!App.state.charts['chart-nm'])App.recalc();},2000);
+});
+</script>
+</body>
+</html>
