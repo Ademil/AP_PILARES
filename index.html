@@ -80,6 +80,17 @@ footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-
 .pill.active{background:var(--azul2);color:#fff;border-color:var(--azul2);}
 .ref-box{background:#f8fafc;border-left:3px solid var(--azul3);padding:8px 10px;font-size:12px;color:#334155;margin:8px 0;border-radius:0 6px 6px 0;}
 .gn-box{background:#fef3c7;border:1px solid #fcd34d;padding:10px;border-radius:8px;margin:8px 0;font-size:12px;color:#78350f;}
+.cap-box{background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border:1px solid #93c5fd;border-radius:10px;padding:12px;margin:10px 0;}
+.cap-box h3{margin:0 0 10px;color:#1e40af;font-size:13px;text-transform:uppercase;letter-spacing:.5px;}
+.cap-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #bfdbfe;font-size:13px;}
+.cap-row:last-child{border-bottom:none;}
+.cap-row .cap-label{color:#1e40af;font-weight:600;}
+.cap-row .cap-value{font-weight:700;font-variant-numeric:tabular-nums;color:#1e3a8a;}
+.margin-bar{height:22px;background:#e2e8f0;border-radius:11px;overflow:hidden;position:relative;margin:4px 0 10px;}
+.margin-bar .fill{height:100%;background:linear-gradient(90deg,#16a34a,#22c55e);transition:width .4s;}
+.margin-bar .fill.warn{background:linear-gradient(90deg,#d97706,#f59e0b);}
+.margin-bar .fill.err{background:linear-gradient(90deg,#dc2626,#ef4444);}
+.margin-bar .txt{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3);}
 @media print{header.appbar,nav.tabs,.bottom-nav,button{display:none!important;}body{background:#fff;padding:0;}.card{box-shadow:none;page-break-inside:avoid;}}
 </style>
 </head>
@@ -87,10 +98,7 @@ footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-
 
 <header class="appbar">
   <div class="logo">AP</div>
-  <div>
-    <h1>APavan Pilares</h1>
-    <small>NBR 6118:2023 — Concreto Armado</small>
-  </div>
+  <div><h1>APavan Pilares</h1><small>NBR 6118:2023 — Concreto Armado</small></div>
   <div class="actions">
     <button onclick="App.saveProject()" title="Salvar">💾</button>
     <button onclick="App.newProject()" title="Novo">＋</button>
@@ -180,7 +188,7 @@ footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-
   <div class="card"><h2>Parâmetros Derivados</h2><table id="tbl-mat"></table></div>
   <div class="card">
     <h2>Rigidez para Análise Global — NLF (NBR 6118:2023, 15.7.3)</h2>
-    <div class="ref-box">Valores aproximados de rigidez para análise global de 2ª ordem em estruturas reticuladas com ≥ 4 andares. <b>Estes valores NÃO podem ser usados para avaliar esforços locais de 2ª ordem.</b></div>
+    <div class="ref-box">Valores aproximados de rigidez para análise global de 2ª ordem. <b>NÃO usar para esforços locais de 2ª ordem.</b></div>
     <table id="tbl-nlf"></table>
   </div>
 </section>
@@ -189,10 +197,10 @@ footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-
   <div class="card">
     <h2>Cobrimento das Armaduras</h2>
     <div class="grid two">
-      <div><label>Classe de Agressividade Ambiental (CAA)</label><select id="in_caa"><option value="I">I — Rural / Submersa</option><option value="II" selected>II — Urbana</option><option value="III">III — Marinha / Industrial</option><option value="IV">IV — Industrial agressivo</option></select></div>
+      <div><label>CAA</label><select id="in_caa"><option value="I">I — Rural / Submersa</option><option value="II" selected>II — Urbana</option><option value="III">III — Marinha / Industrial</option><option value="IV">IV — Industrial agressivo</option></select></div>
       <div><label>c<sub>nom</sub> <small>[mm]</small></label><input id="in_cnom" type="number" value="25" step="5"></div>
       <div><label>Tolerância Δc <small>[mm]</small></label><input id="in_dc" type="number" value="10" step="5"></div>
-      <div><label>c<sub>min</sub> adotado <small>[mm]</small></label><input id="in_cmin" type="number" value="20" step="5"></div>
+      <div><label>c<sub>min</sub> <small>[mm]</small></label><input id="in_cmin" type="number" value="20" step="5"></div>
     </div>
     <div id="cob-status" style="margin-top:10px;"></div>
   </div>
@@ -237,14 +245,14 @@ footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-
     </div>
     <h3>Coeficientes de ponderação (ELU)</h3>
     <div class="grid three">
-      <div><label>γ<sub>g</sub> (permanente)</label><input id="in_gg" type="number" value="1.4" step="0.1"></div>
-      <div><label>γ<sub>q</sub> (variável)</label><input id="in_gq" type="number" value="1.4" step="0.1"></div>
-      <div><label>γ<sub>n</sub> (majoração N)</label><input id="in_gn" type="number" value="1.0" step="0.1"></div>
+      <div><label>γ<sub>g</sub></label><input id="in_gg" type="number" value="1.4" step="0.1"></div>
+      <div><label>γ<sub>q</sub></label><input id="in_gq" type="number" value="1.4" step="0.1"></div>
+      <div><label>γ<sub>n</sub> (manual)</label><input id="in_gn" type="number" value="1.0" step="0.1"></div>
     </div>
     <div id="gn-info"></div>
     <h3>Ações Globais</h3>
     <div class="grid three">
-      <div><label>Peso total edifício <small>[kN]</small></label><input id="in_Wtot" type="number" value="20000" step="100"></div>
+      <div><label>Peso total <small>[kN]</small></label><input id="in_Wtot" type="number" value="20000" step="100"></div>
       <div><label>Força horizontal <small>[kN]</small></label><input id="in_Fh" type="number" value="200" step="10"></div>
       <div><label>Deslocamento topo <small>[mm]</small></label><input id="in_dtopo" type="number" value="25" step="1"></div>
     </div>
@@ -258,18 +266,26 @@ footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-
 
 <section id="tab-nm" class="tab-panel hidden">
   <div class="card">
+    <h2>Capacidade Resistente</h2>
+    <div id="cap-panel"></div>
+  </div>
+  <div class="card">
     <h2>Método de 2ª Ordem</h2>
     <div class="pill-row">
       <div class="pill active" data-metodo2a="curvatura">Curvatura aproximada (15.8.3.3.2)</div>
       <div class="pill" data-metodo2a="kappa">Rigidez κ aproximada (15.8.3.3.3)</div>
     </div>
     <div class="ref-box">
-      <b>Curvatura aproximada:</b> 1/r = 0,005/[h·(ν+0,5)] ≤ 0,005/h ; M<sub>2d</sub> = N<sub>d</sub> · l<sub>e</sub>²/10 · (1/r)<br>
+      <b>Curvatura aproximada:</b> 1/r = 0,005/[h·(ν+0,5)] ≤ 0,005/h ; M<sub>2d</sub> = N<sub>d</sub>·l<sub>e</sub>²/10·(1/r)<br>
       <b>Rigidez κ aproximada:</b> M<sub>tot</sub> = α<sub>b</sub>·M<sub>1d,A</sub> / [1 − λ²/(120·κ)] ; κ = 32·[1 + 5·h·ν / (α<sub>b</sub>·M<sub>1d,A</sub>/N<sub>d</sub>)]
     </div>
     <div id="metodo2a-info"></div>
   </div>
-  <div class="card"><h2>Diagrama N-M (Interação)</h2><div class="chart-wrap"><canvas id="chart-nm"></canvas></div><div id="nm-status" style="margin-top:8px;"></div></div>
+  <div class="card">
+    <h2>Diagrama N-M (Interação)</h2>
+    <div class="chart-wrap"><canvas id="chart-nm"></canvas></div>
+    <div id="nm-status" style="margin-top:8px;"></div>
+  </div>
   <div class="card">
     <h2>Diagramas Dinâmicos</h2>
     <h3>Momento Fletor × Altura</h3><div class="chart-wrap"><canvas id="chart-m"></canvas></div>
@@ -284,23 +300,19 @@ footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-
 <section id="tab-global" class="tab-panel hidden">
   <div class="card">
     <h2>Parâmetro de Instabilidade α — NBR 6118:2023, 15.5.2</h2>
-    <div class="ref-box"><b>α = H<sub>tot</sub> · √(N<sub>k</sub> / (E<sub>cs</sub>·I<sub>c</sub>))</b><br>
-    Comparação com α₁: se α &lt; α₁ → nós fixos; se α ≥ α₁ → nós móveis.<br>
-    α₁ = 0,2 + 0,1·n (n ≤ 3) | α₁ = 0,6 (n ≥ 4) | α₁ = 0,7 (pilar-parede) | α₁ = 0,5 (pórtico)</div>
+    <div class="ref-box"><b>α = H<sub>tot</sub> · √(N<sub>k</sub> / (E<sub>cs</sub>·I<sub>c</sub>))</b><br>α₁ = 0,2 + 0,1·n (n ≤ 3) | 0,6 (n ≥ 4) | 0,7 (pilar-parede) | 0,5 (pórtico)</div>
     <div class="grid three">
-      <div><label>Altura total H<sub>tot</sub> <small>[m]</small></label><input id="in_Htot" type="number" value="15" step="0.5"></div>
+      <div><label>H<sub>tot</sub> <small>[m]</small></label><input id="in_Htot" type="number" value="15" step="0.5"></div>
       <div><label>Nº de níveis n</label><input id="in_n_niveis" type="number" value="5" step="1" min="1"></div>
       <div><label>N<sub>k,tot</sub> <small>[kN]</small></label><input id="in_Nk_tot" type="number" value="20000" step="500"></div>
       <div><label>Σ E<sub>cs</sub>·I<sub>c</sub> <small>[kN·m²]</small></label><input id="in_sumEI" type="number" value="5000000" step="100000"></div>
-      <div><label>Tipo de contraventamento</label><select id="in_tipo_contravent"><option value="portico">Somente pórticos (α₁=0,5)</option><option value="misto" selected>Misto (α₁=0,6)</option><option value="parede">Somente pilares-parede (α₁=0,7)</option></select></div>
+      <div><label>Tipo de contraventamento</label><select id="in_tipo_contravent"><option value="portico">Pórticos (α₁=0,5)</option><option value="misto" selected>Misto (α₁=0,6)</option><option value="parede">Pilares-parede (α₁=0,7)</option></select></div>
     </div>
     <div id="alpha-status" style="margin-top:10px;"></div>
   </div>
   <div class="card">
-    <h2>Estabilidade Global — γ<sub>z</sub> — NBR 6118:2023, 15.5.3</h2>
-    <div class="ref-box"><b>γ<sub>z</sub> = 1 / (1 − ΔM<sub>tot,d</sub> / M<sub>1,tot,d</sub>)</b><br>
-    ΔM<sub>tot,d</sub> = Σ(P<sub>d</sub> · u<sub>h,h</sub>)<br>M<sub>1,tot,d</sub> = momento de tombamento<br>
-    Validade: γ<sub>z</sub> ≤ 1,30</div>
+    <h2>Estabilidade Global — γ<sub>z</sub></h2>
+    <div class="ref-box"><b>γ<sub>z</sub> = 1 / (1 − ΔM<sub>tot,d</sub> / M<sub>1,tot,d</sub>)</b> · Validade: γ<sub>z</sub> ≤ 1,30</div>
     <div class="grid two">
       <div><label>ΔM<sub>tot,d</sub> <small>[kN·m]</small></label><input id="in_dMtot" type="number" value="1200" step="10"></div>
       <div><label>M<sub>1,tot,d</sub> <small>[kN·m]</small></label><input id="in_M1tot" type="number" value="8000" step="100"></div>
@@ -311,22 +323,17 @@ footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-
     <div class="chart-wrap"><canvas id="chart-gz"></canvas></div>
   </div>
   <div class="card">
-    <h2>Método P-Δ Iterativo (Carga Lateral Fictícia)</h2>
-    <div class="ref-box">Método iterativo para efeitos globais de 2ª ordem. A cada iteração calcula-se ΔM e uma força lateral fictícia até convergência.<br>
-    Δ = F<sub>d</sub>·l³ / (3·(EI)<sub>sec</sub>) · com (EI)<sub>sec</sub> = 0,7·E<sub>ci</sub>·I<sub>c</sub> (NBR 6118:2023, 15.7.3)</div>
+    <h2>Método P-Δ Iterativo</h2>
+    <div class="ref-box">Δ = F<sub>d</sub>·l³ / (3·(EI)<sub>sec</sub>) · (EI)<sub>sec</sub> = 0,7·E<sub>ci</sub>·I<sub>c</sub></div>
     <div class="grid three">
-      <div><label>F<sub>d</sub> (ação horizontal) <small>[kN]</small></label><input id="in_Fd_pd" type="number" value="50" step="5"></div>
-      <div><label>P<sub>d</sub> (carga vertical) <small>[kN]</small></label><input id="in_Pd_pd" type="number" value="10000" step="100"></div>
+      <div><label>F<sub>d</sub> <small>[kN]</small></label><input id="in_Fd_pd" type="number" value="50" step="5"></div>
+      <div><label>P<sub>d</sub> <small>[kN]</small></label><input id="in_Pd_pd" type="number" value="10000" step="100"></div>
       <div><label>Comprimento l <small>[m]</small></label><input id="in_l_pd" type="number" value="5" step="0.5"></div>
     </div>
     <button class="btn sm" style="margin-top:8px;" onclick="runPDelta()">▶ Executar P-Δ iterativo</button>
     <div id="pd-status" style="margin-top:10px;"></div>
   </div>
-  <div class="card">
-    <h2>Deslocamentos Globais</h2>
-    <div class="ref-box">Gráfico baseado na altura livre do pilar (l) e deslocamento do topo (d<sub>topo</sub>) da aba Ações. Independente do P-Δ.</div>
-    <div class="chart-wrap"><canvas id="chart-global"></canvas></div>
-  </div>
+  <div class="card"><h2>Deslocamentos Globais</h2><div class="chart-wrap"><canvas id="chart-global"></canvas></div></div>
 </section>
 
 <section id="tab-verif" class="tab-panel hidden">
@@ -357,7 +364,7 @@ footer.legal{padding:14px;font-size:11px;color:#64748b;text-align:center;border-
     <p><b>APavan Engenharia e Consultoria</b><br>Engenheiro Civil — Engenheiro de Segurança do Trabalho<br>CREA-SC 86959-8<br>Tubarão — SC</p>
     <p>📞 (48) 99986-2981<br>✉️ apavaneng@gmail.com<br>📷 @apavaneng</p>
     <hr>
-    <p style="font-size:12px;color:#64748b;"><b>Limitações:</b> Esta ferramenta é destinada ao apoio ao cálculo e à verificação de estruturas. Os resultados devem ser conferidos por profissional legalmente habilitado e não substituem a análise, o julgamento de engenharia, os projetos executivos e as verificações completas exigidas pelas normas aplicáveis.</p>
+    <p style="font-size:12px;color:#64748b;"><b>Limitações:</b> Ferramenta de apoio. Os resultados devem ser conferidos por profissional legalmente habilitado.</p>
   </div>
 </section>
 
@@ -432,11 +439,9 @@ const App=(()=>{
     };
   }
 
-  /* Coeficiente γn — NBR 6118:2023, Tabela 13.1 */
   function calcGammaN(b){
     if(b>=19) return 1.00;
-    if(b<14) return NaN; // inválido
-    // γn = 1,95 - 0,05·b  (b em cm)
+    if(b<14) return NaN;
     return Math.max(1.00, Math.min(1.25, 1.95-0.05*b));
   }
 
@@ -498,7 +503,6 @@ const App=(()=>{
       return{ex1,ey1,exMin,eyMin,ea,e1x:Math.max(ex1,exMin,ea),e1y:Math.max(ey1,eyMin,ea)};
     },
 
-    /* Esforços de cálculo — agora majorados por γn quando b < 19 cm */
     forces(inp){
       const bMenor=Math.min(inp.b,inp.h);
       const gn=calcGammaN(bMenor);
@@ -523,10 +527,8 @@ const App=(()=>{
       const invRy=Math.min(0.005/(b*(nu+0.5)),0.005/b);
       const M2dx=Nd*le*le/10*invRx,M2dy=Nd*le*le/10*invRy;
       return{
-        M2dx,M2dy,
-        Mtotx:forces.Mdx+M2dx,Mtoty:forces.Mdy+M2dy,
-        invRx,invRy,nu,metodo:'curvatura',
-        kappaX:NaN,kappaY:NaN,iterX:0,iterY:0
+        M2dx,M2dy,Mtotx:forces.Mdx+M2dx,Mtoty:forces.Mdy+M2dy,
+        invRx,invRy,nu,metodo:'curvatura',kappaX:NaN,kappaY:NaN,iterX:0,iterY:0
       };
     },
 
@@ -538,58 +540,39 @@ const App=(()=>{
       const lambdaX=slen.lx,lambdaY=slen.ly;
       const M1dA_x=Math.max(Math.abs(forces.Mdx), Nd*ecc.e1x/100);
       const M1dA_y=Math.max(Math.abs(forces.Mdy), Nd*ecc.e1y/100);
-
       function iter(M1dA,h,lambda){
         if(M1dA<=0||!isFinite(M1dA)) return {M:0,kappa:0,iter:0,diverge:false};
-        let Mtot=M1dA;
-        let kappa=32;
+        let Mtot=M1dA,kappa=32;
         for(let i=0;i<60;i++){
           const denom=M1dA/Nd;
           if(denom<=0) break;
           kappa=32*(1+5*h*nu/denom);
           const divisor=1-lambda*lambda/(120*kappa);
-          if(divisor<=0.05){
-            return {M:NaN,kappa,iter:i,diverge:true};
-          }
+          if(divisor<=0.05) return {M:NaN,kappa,iter:i,diverge:true};
           const M_new=alphaB*M1dA/divisor;
-          if(Math.abs(M_new-Mtot)<0.001){
-            return {M:M_new,kappa,iter:i+1,diverge:false};
-          }
+          if(Math.abs(M_new-Mtot)<0.001) return {M:M_new,kappa,iter:i+1,diverge:false};
           Mtot=M_new;
         }
         return {M:Mtot,kappa,iter:60,diverge:false};
       }
-
       const rx=iter(M1dA_x,hx,lambdaX);
       const ry=iter(M1dA_y,hy,lambdaY);
-
-      const M2dx_fallback=Math.min(0.005/(hx*(nu+0.5)),0.005/hx)*Nd*inp.le*inp.le/10;
-      const M2dy_fallback=Math.min(0.005/(hy*(nu+0.5)),0.005/hy)*Nd*inp.le*inp.le/10;
-
-      const Mtotx=isFinite(rx.M)?rx.M:M1dA_x+M2dx_fallback;
-      const Mtoty=isFinite(ry.M)?ry.M:M1dA_y+M2dy_fallback;
-
-      const M2dx=Mtotx-M1dA_x;
-      const M2dy=Mtoty-M1dA_y;
-
+      const M2dx_fb=Math.min(0.005/(hx*(nu+0.5)),0.005/hx)*Nd*inp.le*inp.le/10;
+      const M2dy_fb=Math.min(0.005/(hy*(nu+0.5)),0.005/hy)*Nd*inp.le*inp.le/10;
+      const Mtotx=isFinite(rx.M)?rx.M:M1dA_x+M2dx_fb;
+      const Mtoty=isFinite(ry.M)?ry.M:M1dA_y+M2dy_fb;
+      const M2dx=Mtotx-M1dA_x,M2dy=Mtoty-M1dA_y;
       const invRx=Nd>0&&inp.le>0?(M2dx*10)/(Nd*inp.le*inp.le):0;
       const invRy=Nd>0&&inp.le>0?(M2dy*10)/(Nd*inp.le*inp.le):0;
-
       return{
-        M2dx,M2dy,
-        Mtotx,Mtoty,
-        invRx,invRy,nu,metodo:'kappa',
-        kappaX:rx.kappa,kappaY:ry.kappa,
-        iterX:rx.iter,iterY:ry.iter,
-        divergeX:rx.diverge,divergeY:ry.diverge,
-        M1dA_x,M1dA_y,alphaB
+        M2dx,M2dy,Mtotx,Mtoty,invRx,invRy,nu,metodo:'kappa',
+        kappaX:rx.kappa,kappaY:ry.kappa,iterX:rx.iter,iterY:ry.iter,
+        divergeX:rx.diverge,divergeY:ry.diverge,M1dA_x,M1dA_y,alphaB
       };
     },
 
     secondOrder(inp,sec,mat,forces,ecc,slen){
-      if(state.metodo2a==='kappa'){
-        return Engine.secondOrderKappa(inp,sec,mat,forces,ecc,slen);
-      }
+      if(state.metodo2a==='kappa') return Engine.secondOrderKappa(inp,sec,mat,forces,ecc,slen);
       return Engine.secondOrderCurvatura(inp,sec,mat,forces);
     },
 
@@ -632,6 +615,84 @@ const App=(()=>{
       return{N:Nrd_arr,M:Mrd_arr};
     },
 
+    /* =========================================================
+       CAPACIDADE RESISTENTE
+       ========================================================= */
+    capacity(inp,sec,mat,reinf,forces,crvX){
+      const Nd=forces.Nd;
+      const Mdx=Math.abs(forces.Mdx);
+      const Mdy=Math.abs(forces.Mdy);
+
+      // Curva N-M na direção Y: cria seção com b e h trocados
+      const secY={b:sec.h,h:sec.b,Ac:sec.Ac,Ix:sec.Iy,Iy:sec.Ix,ix:sec.iy,iy:sec.ix,Wx:sec.Wy,Wy:sec.Wx};
+      const crvY=Engine.interaction(inp,secY,mat,reinf);
+
+      // N_Rd,max e N_Rd,min das curvas
+      let NRdmaxX=-Infinity,NRdminX=Infinity;
+      crvX.N.forEach(n=>{if(n>NRdmaxX)NRdmaxX=n;if(n<NRdminX)NRdminX=n;});
+      let NRdmaxY=-Infinity,NRdminY=Infinity;
+      crvY.N.forEach(n=>{if(n>NRdmaxY)NRdmaxY=n;if(n<NRdminY)NRdminY=n;});
+
+      // N_Rd,max normativo (compressão centrada) — item 17.3.5.3
+      const NRd_max_norm=0.85*mat.fcd*sec.Ac/10 + mat.fyd*reinf.As/10;
+      const NRd_max_curve=Math.min(NRdmaxX,NRdmaxY);
+      const NRd_min_curve=Math.max(NRdminX,NRdminY);
+
+      // Interpola M_Rd no nível de N_Sd
+      function MRd_at_N(curve,N){
+        let MRd=0;
+        for(let i=1;i<curve.N.length;i++){
+          const n1=curve.N[i-1],n2=curve.N[i];
+          const m1=Math.abs(curve.M[i-1]),m2=Math.abs(curve.M[i]);
+          if((n1-N)*(n2-N)<=0){
+            const t=(N-n1)/(n2-n1||1);
+            const m=m1+t*(m2-m1);
+            if(m>MRd)MRd=m;
+          }
+        }
+        return MRd;
+      }
+
+      const MRd_x=MRd_at_N(crvX,Nd);
+      const MRd_y=MRd_at_N(crvY,Nd);
+
+      // Utilização
+      const util_N=NRd_max_norm>0?Nd/NRd_max_norm:0;
+      const util_Mx=MRd_x>0?Mdx/MRd_x:(Mdx>0?Infinity:0);
+      const util_My=MRd_y>0?Mdy/MRd_y:(Mdy>0?Infinity:0);
+      const util_biaxial=util_Mx+util_My; // Bresler α=1 (conservador)
+      const util=Math.max(util_N,util_biaxial);
+
+      // Margens
+      const margem_N=NRd_max_norm-Nd;
+      const margem_Mx=MRd_x-Mdx;
+      const margem_My=MRd_y-Mdy;
+      const fator_folga=util>0?1/util:Infinity;
+
+      // Sensibilidade: variar N_Sd de -20% a +20%
+      const sens=[];
+      [-0.2,-0.1,-0.05,0,0.05,0.1,0.2].forEach(df=>{
+        const Nd_new=Nd*(1+df);
+        const mx_new=MRd_at_N(crvX,Nd_new);
+        const my_new=MRd_at_N(crvY,Nd_new);
+        const uN=NRd_max_norm>0?Nd_new/NRd_max_norm:0;
+        const uMx=mx_new>0?Mdx/mx_new:Infinity;
+        const uMy=my_new>0?Mdy/my_new:Infinity;
+        const u=Math.max(uN,uMx+uMy);
+        sens.push({df,Nd:Nd_new,MRd_x:mx_new,MRd_y:my_new,util:u});
+      });
+
+      return{
+        NRd_max:Math.min(NRd_max_curve,NRd_max_norm),
+        NRd_max_norm,NRd_max_curve,NRd_min_curve,
+        MRd_x,MRd_y,
+        margem_N,margem_Mx,margem_My,
+        util,util_N,util_Mx,util_My,util_biaxial,
+        fator_folga,sens,
+        crvX,crvY
+      };
+    },
+
     shear(inp,sec,mat,forces){
       const{Vdx,Vdy}=forces;
       const{b,h}=sec;
@@ -647,7 +708,7 @@ const App=(()=>{
     alphaParameter(inp){
       const Htot=inp.Htot,Nk_tot=inp.Nk_tot,sumEI=inp.sumEI;
       let alpha=NaN;
-      if(sumEI>0&&Htot>0&&Nk_tot>0){alpha=Htot*Math.sqrt(Nk_tot/sumEI);}
+      if(sumEI>0&&Htot>0&&Nk_tot>0) alpha=Htot*Math.sqrt(Nk_tot/sumEI);
       const n=Math.max(1,Math.round(inp.n_niveis));
       let alpha1;
       if(n<=3) alpha1=0.2+0.1*n;
@@ -660,85 +721,55 @@ const App=(()=>{
 
     gammaZ(inp){
       const{dMtot,M1tot}=inp;
-      if(M1tot<=0)return{gz:NaN,dMtot,M1tot,ampl:NaN,classe:'—'};
+      if(M1tot<=0) return{gz:NaN,dMtot,M1tot,ampl:NaN,classe:'—'};
       const gz=1/(1-dMtot/M1tot);
       const ampl=0.95*gz;
       let classe;
-      if(gz<=1.10)classe='Nós fixos (2ª ordem global ≤ 10%)';
-      else if(gz<=1.30)classe='Nós móveis (2ª ordem global > 10%)';
+      if(gz<=1.10) classe='Nós fixos (2ª ordem global ≤ 10%)';
+      else if(gz<=1.30) classe='Nós móveis (2ª ordem global > 10%)';
       else classe='γz > 1,30 — método simplificado não se aplica';
       return{gz,dMtot,M1tot,ampl,classe};
     },
 
     pDelta(inp,sec,mat){
-      const Fd_d=inp.Fd_pd*1.4;
-      const Pd_d=inp.Pd_pd*1.4;
-      const l=inp.l_pd;
-      const Eci=mat.Eci*1000;
-      const Ic=sec.Ix*1e-8;
-      const EIsec=0.7*Eci*Ic;
-      const l3=l*l*l;
+      const Fd_d=inp.Fd_pd*1.4,Pd_d=inp.Pd_pd*1.4,l=inp.l_pd;
+      const Eci=mat.Eci*1000,Ic=sec.Ix*1e-8;
+      const EIsec=0.7*Eci*Ic,l3=l*l*l;
       const Delta0=EIsec>0?(Fd_d*l3)/(3*EIsec):0;
       const iter=[];
-      let M=Fd_d*l;
-      let prevM=0;
-      let Delta=Delta0;
+      let M=Fd_d*l,prevM=0,Delta=Delta0;
       iter.push({n:0,d:Delta,Ff:0,M:M,dM:0,err:0});
       for(let i=1;i<=15;i++){
-        const dM=Pd_d*Delta;
-        M=M+dM;
+        const dM=Pd_d*Delta;M=M+dM;
         const Ff_d=(l>0)?(Pd_d*Delta/l):0;
         const Delta_new=EIsec>0?(Ff_d*l3)/(3*EIsec):0;
         const err=prevM>0?Math.abs(M-prevM)/M*100:0;
         iter.push({n:i,d:Delta,Ff:Ff_d/1.4,M:M,dM:dM,err:err});
-        prevM=M;
-        Delta=Delta_new;
+        prevM=M;Delta=Delta_new;
         if(err>0&&err<0.01) break;
         if(Delta<1e-12) break;
       }
       return{iter,finalM:M,EIsec,Fd:Fd_d,Pd:Pd_d,l,Delta0};
     },
 
-    verification(inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha){
+    verification(inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha,capacity){
       const checks=[];
       const bMenor=Math.min(inp.b,inp.h);
-      const areaMin=360; // cm²
+      const areaMin=360;
       const areaOk=sec.Ac>=areaMin;
 
-      // Verificação de dimensão mínima com exceção do γn (item 13.2.3)
       const bOk=bMenor>=19;
       const bExcecao=bMenor>=14&&bMenor<19;
-      const bInvalido=bMenor<14;
-      let dimObs='';
-      let dimOk=false;
-      if(bOk){
-        dimOk=true;
-        dimObs='Dimensão ≥ 19 cm — sem majoração adicional.';
-      }else if(bExcecao){
-        dimOk=true;
-        dimObs=`b = ${bMenor} cm ∈ [14;19) — aplicado γn = ${forces.gn.toFixed(2)} (Tabela 13.1).`;
-      }else{
-        dimOk=false;
-        dimObs=`b = ${bMenor} cm < 14 cm — NÃO PERMITIDO pela NBR 6118:2023.`;
-      }
-      checks.push({
-        nome:'Dimensão mínima do pilar (14–19 cm com γn)',
-        ref:'NBR 6118:2023, 13.2.3 + Tabela 13.1',
-        valor:`b = ${bMenor} cm | γn = ${isFinite(forces.gn)?forces.gn.toFixed(2):'—'}`,
-        ok:dimOk,
-        obs:dimObs
-      });
-
-      checks.push({
-        nome:'Área mínima da seção (≥360 cm²)',
-        ref:'NBR 6118:2023, 13.2.3',
-        valor:`A_c = ${sec.Ac.toFixed(2)} cm²`,
-        ok:areaOk,
-        obs:areaOk?'OK':'Área < 360 cm² — não permitido.'
-      });
+      let dimObs='',dimOk=false;
+      if(bOk){dimOk=true;dimObs='Dimensão ≥ 19 cm — sem majoração adicional.';}
+      else if(bExcecao){dimOk=true;dimObs=`b = ${bMenor} cm ∈ [14;19) — γn = ${forces.gn.toFixed(2)} aplicado.`;}
+      else{dimOk=false;dimObs=`b = ${bMenor} cm < 14 cm — NÃO PERMITIDO.`;}
+      checks.push({nome:'Dimensão mínima (14–19 cm com γn)',ref:'NBR 6118:2023, 13.2.3 + Tabela 13.1',valor:`b = ${bMenor} cm | γn = ${forces.gn.toFixed(2)}`,ok:dimOk,obs:dimObs});
+      checks.push({nome:'Área mínima da seção (≥360 cm²)',ref:'NBR 6118:2023, 13.2.3',valor:`A_c = ${sec.Ac.toFixed(2)} cm²`,ok:areaOk});
 
       const cMin={I:20,II:25,III:35,IV:45}[inp.caa];
       checks.push({nome:'Cobrimento nominal',ref:'NBR 6118:2023, Tabela 7.2',valor:`c_nom = ${inp.cnom} mm (CAA ${inp.caa}: ≥${cMin} mm)`,ok:inp.cnom>=cMin});
+
       const As_min=Math.max(0.15*forces.Nd/(mat.fyd/10),0.004*sec.Ac);
       checks.push({nome:'A_s,min',ref:'NBR 6118:2023, 17.3.5.3.1',valor:`A_s = ${reinf.As.toFixed(2)} / min = ${As_min.toFixed(2)} cm²`,ok:reinf.As>=As_min});
       const As_max=0.08*sec.Ac;
@@ -762,27 +793,19 @@ const App=(()=>{
         else gzObs='γz > 1,30 — análise rigorosa necessária';
       }
       checks.push({nome:'Estabilidade global γz',ref:'NBR 6118:2023, 15.5.3',valor:`γz = ${isFinite(gz.gz)?gz.gz.toFixed(3):'—'}`,ok:isFinite(gz.gz)&&gz.gz<=1.30,obs:gzObs});
-      const util=engineInteractionUtil(inp,sec,mat,reinf,forces);
-      checks.push({nome:'Índice de utilização (N-M)',ref:'—',valor:`Sd/Rd = ${util.util.toFixed(3)}`,ok:util.ok});
-      return{checks,As_min,As_max,rho,util};
+
+      // N_Rd,max normativo
+      checks.push({nome:'N_Rd,max (compressão centrada)',ref:'NBR 6118:2023, 17.3.5.3',valor:`N_Rd,max = ${capacity.NRd_max_norm.toFixed(2)} kN`,ok:forces.Nd<=capacity.NRd_max_norm});
+
+      // Flexão composta biaxial
+      const util=capacity.util;
+      checks.push({nome:'Flexão composta (Bresler α=1)',ref:'NBR 6118:2023, 15.8.3.3.5',valor:`Sd/Rd = ${util.toFixed(3)}`,ok:util<=1.0,obs:`M_Rd,x=${capacity.MRd_x.toFixed(2)} kN·m ; M_Rd,y=${capacity.MRd_y.toFixed(2)} kN·m`});
+
+      return{checks,As_min,As_max,rho,util:capacity};
     }
   };
 
-  function engineInteractionUtil(inp,sec,mat,reinf,forces){
-    const crv=Engine.interaction(inp,sec,mat,reinf);
-    const Nd=forces.Nd,Md=forces.Mdx;
-    if(!crv.N.length)return{util:NaN,ok:false,capN:0,capM:0,crv};
-    let bestDist=Infinity,bestCapN=0,bestCapM=0;
-    for(let i=0;i<crv.N.length;i++){
-      const d=Math.hypot(crv.N[i]-Nd,crv.M[i]-Md);
-      if(d<bestDist){bestDist=d;bestCapN=crv.N[i];bestCapM=crv.M[i];}
-    }
-    const utilN=bestCapN!==0?Math.abs(Nd/bestCapN):0;
-    const utilM=bestCapM!==0?Math.abs(Md/bestCapM):0;
-    const util=Math.max(utilN,utilM);
-    return{util,ok:util<=1.0,capN:bestCapN,capM:bestCapM,crv};
-  }
-
+  /* SVG SEÇÃO */
   function renderSvgSection(targetId,inp,sec){
     const svg=document.getElementById(targetId);if(!svg)return;
     const vb=340,cx=vb/2,cy=vb/2;
@@ -846,8 +869,8 @@ const App=(()=>{
     svg.innerHTML=s;
   }
 
+  /* CHARTS */
   function chartAvailable(){return typeof Chart!=='undefined';}
-
   function makeChart(id,cfg){
     const canvas=document.getElementById(id);if(!canvas)return null;
     if(canvas.offsetWidth===0||canvas.offsetHeight===0){state.pendingCharts[id]=cfg;return null;}
@@ -864,7 +887,6 @@ const App=(()=>{
       return chart;
     }catch(e){console.error('chart',id,e);return null;}
   }
-
   function flushPendingCharts(){
     Object.keys(state.pendingCharts).forEach(id=>{
       const canvas=document.getElementById(id);
@@ -874,16 +896,22 @@ const App=(()=>{
     });
   }
 
-  function renderCharts(inp,sec,mat,forces,second,slen,ecc,prof,crv,gz,alpha){
+  function renderCharts(inp,sec,mat,forces,second,slen,ecc,prof,capacity,gz,alpha){
     if(!chartAvailable()){
       if(!state._chartRetry){state._chartRetry=true;setTimeout(()=>{state._chartRetry=false;if(chartAvailable())recalc();},1500);}
       return;
     }
-    const crvData=(crv&&crv.N&&crv.M)?crv.N.map((n,i)=>({x:Math.abs(crv.M[i]||0),y:n})).filter(p=>isFinite(p.x)&&isFinite(p.y)):[];
+    const crvX=capacity.crvX,crvY=capacity.crvY;
+    const crvData=crvX.N.map((n,i)=>({x:Math.abs(crvX.M[i]||0),y:n})).filter(p=>isFinite(p.x)&&isFinite(p.y));
+    const crvDataY=crvY.N.map((n,i)=>({x:Math.abs(crvY.M[i]||0),y:n})).filter(p=>isFinite(p.x)&&isFinite(p.y));
+
     makeChart('chart-nm',{type:'scatter',data:{datasets:[
-      {label:'Curva N-M (Rd)',data:crvData,showLine:true,borderColor:'#0b2e4f',backgroundColor:'rgba(11,46,79,0.1)',borderWidth:2,pointRadius:0,fill:false,tension:0.1},
-      {label:'Solicitação (Sd)',data:[{x:Math.abs(forces.Mdx||0),y:forces.Nd||0}],backgroundColor:'#dc2626',pointRadius:8,pointStyle:'triangle'}
-    ]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'M [kN·m]'},type:'linear'},y:{title:{display:true,text:'N [kN]'}}}}});
+      {label:'Curva N-M (X)',data:crvData,showLine:true,borderColor:'#0b2e4f',backgroundColor:'rgba(11,46,79,0.08)',borderWidth:2,pointRadius:0,fill:false,tension:0.1},
+      {label:'Curva N-M (Y)',data:crvDataY,showLine:true,borderColor:'#1f6fbf',backgroundColor:'rgba(31,111,191,0.08)',borderWidth:1.5,pointRadius:0,fill:false,tension:0.1,borderDash:[5,4]},
+      {label:'Solicitação Sd',data:[{x:Math.abs(forces.Mdx||0),y:forces.Nd||0}],backgroundColor:'#dc2626',pointRadius:8,pointStyle:'triangle'},
+      {label:'M_Rd,x @ N_Sd',data:[{x:capacity.MRd_x,y:forces.Nd}],backgroundColor:'#16a34a',pointRadius:6,pointStyle:'rectRot'},
+      {label:'M_Rd,y @ N_Sd',data:[{x:capacity.MRd_y,y:forces.Nd}],backgroundColor:'#0891b2',pointRadius:6,pointStyle:'rectRot'}
+    ]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>`M=${(c.parsed.x||0).toFixed(1)} kN·m, N=${(c.parsed.y||0).toFixed(1)} kN`}}},scales:{x:{title:{display:true,text:'M [kN·m]'},type:'linear'},y:{title:{display:true,text:'N [kN]'}}}}});
 
     makeChart('chart-m',{type:'line',data:{labels:prof.z.map(z=>z.toFixed(2)),datasets:[
       {label:'M 1ª ordem',data:prof.M1,borderColor:'#1f6fbf',tension:.3,pointRadius:0,borderWidth:2},
@@ -910,9 +938,122 @@ const App=(()=>{
     makeChart('chart-global',{type:'line',data:{labels:glLabels,datasets:[{label:'δx [mm]',data:glDx,borderColor:'#dc2626',tension:.3,pointRadius:2,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'Altura acumulada [m]'}},y:{title:{display:true,text:'δ [mm]'}}}}});
   }
 
+  /* PAINEL CAPACIDADE */
+  function renderCapacityPanel(inp,sec,mat,reinf,forces,capacity){
+    const el=document.getElementById('cap-panel');if(!el)return;
+    const fmt=(v,d=2)=>isFinite(v)?v.toFixed(d):'—';
+    const util=capacity.util;
+    const utilClass=util<=0.7?'ok':util<=1.0?'warn':'err';
+    const utilLabel=util<=0.7?'FOLGA CONFORTÁVEL':util<=1.0?'ATENDE (limite)':'NÃO ATENDE';
+
+    const margem_N_pct=capacity.NRd_max_norm>0?(capacity.margem_N/capacity.NRd_max_norm)*100:0;
+    const margem_Mx_pct=capacity.MRd_x>0?(capacity.margem_Mx/capacity.MRd_x)*100:0;
+    const margem_My_pct=capacity.MRd_y>0?(capacity.margem_My/capacity.MRd_y)*100:0;
+
+    // Barra de utilização
+    const utilBarW=Math.min(100,util*100);
+    const utilBarClass=util<=0.7?'':util<=1.0?'warn':'err';
+
+    let sensHtml='';
+    capacity.sens.forEach(s=>{
+      const dfPct=(s.df*100).toFixed(0);
+      const dfLabel=dfPct>0?'+'+dfPct:dfPct;
+      const isAtual=Math.abs(s.df)<0.001;
+      const cls=s.util<=0.7?'ok':s.util<=1.0?'warn':'err';
+      const badge=cls==='ok'?'<span class="badge ok">OK</span>':cls==='warn'?'<span class="badge warn">Limite</span>':'<span class="badge err">NÃO OK</span>';
+      sensHtml+=`<tr style="${isAtual?'background:#fef3c7;font-weight:600;':''}">
+        <td>${dfLabel}%</td>
+        <td class="num">${fmt(s.Nd,2)}</td>
+        <td class="num">${fmt(s.MRd_x,2)}</td>
+        <td class="num">${fmt(s.MRd_y,2)}</td>
+        <td class="num"><b>${isFinite(s.util)?s.util.toFixed(3):'∞'}</b></td>
+        <td>${badge}</td>
+      </tr>`;
+    });
+
+    el.innerHTML=`
+      <div class="cap-box">
+        <h3>📍 Capacidade da seção no nível atual de N<sub>d</sub></h3>
+        <div class="cap-row">
+          <span class="cap-label">N<sub>Rd,max</sub> (compressão centrada — 17.3.5.3)</span>
+          <span class="cap-value">${fmt(capacity.NRd_max_norm)} kN</span>
+        </div>
+        <div class="cap-row">
+          <span class="cap-label">N<sub>Rd,min</sub> (curva — tração)</span>
+          <span class="cap-value">${fmt(capacity.NRd_min_curve)} kN</span>
+        </div>
+        <div class="cap-row">
+          <span class="cap-label">N<sub>Sd</sub> (solicitante)</span>
+          <span class="cap-value">${fmt(forces.Nd)} kN</span>
+        </div>
+        <div class="cap-row" style="background:#fff;padding:8px;border-radius:6px;margin-top:4px;">
+          <span class="cap-label" style="color:#166534;">Margem em N = ${fmt(capacity.margem_N)} kN (${fmt(margem_N_pct,1)}% de reserva)</span>
+        </div>
+      </div>
+
+      <div class="cap-box">
+        <h3>🎯 Momento resistente no nível N<sub>Sd</sub> = ${fmt(forces.Nd)} kN</h3>
+        <div class="cap-row">
+          <span class="cap-label">M<sub>Rd,x</sub> @ N<sub>Sd</sub></span>
+          <span class="cap-value">${fmt(capacity.MRd_x)} kN·m</span>
+        </div>
+        <div class="cap-row">
+          <span class="cap-label">M<sub>Sd,x</sub></span>
+          <span class="cap-value" style="color:#dc2626;">${fmt(Math.abs(forces.Mdx))} kN·m</span>
+        </div>
+        <div class="cap-row">
+          <span class="cap-label">Margem em X</span>
+          <span class="cap-value">${fmt(capacity.margem_Mx)} kN·m (${fmt(margem_Mx_pct,1)}%)</span>
+        </div>
+        <div class="cap-row" style="border-top:1px dashed #93c5fd;margin-top:6px;padding-top:8px;">
+          <span class="cap-label">M<sub>Rd,y</sub> @ N<sub>Sd</sub></span>
+          <span class="cap-value">${fmt(capacity.MRd_y)} kN·m</span>
+        </div>
+        <div class="cap-row">
+          <span class="cap-label">M<sub>Sd,y</sub></span>
+          <span class="cap-value" style="color:#dc2626;">${fmt(Math.abs(forces.Mdy))} kN·m</span>
+        </div>
+        <div class="cap-row">
+          <span class="cap-label">Margem em Y</span>
+          <span class="cap-value">${fmt(capacity.margem_My)} kN·m (${fmt(margem_My_pct,1)}%)</span>
+        </div>
+      </div>
+
+      <div class="cap-box">
+        <h3>📊 Fator de Utilização</h3>
+        <div style="font-size:26px;font-weight:800;color:${utilClass==='ok'?'#16a34a':utilClass==='warn'?'#d97706':'#dc2626'};text-align:center;margin:6px 0;">
+          ${isFinite(util)?util.toFixed(3):'∞'} <span style="font-size:14px;color:#64748b;">/ 1,000</span>
+        </div>
+        <div class="margin-bar">
+          <div class="fill ${utilBarClass}" style="width:${utilBarW}%"></div>
+          <div class="txt">${utilLabel}${isFinite(capacity.fator_folga)?` — folga ${capacity.fator_folga.toFixed(2)}×`:''}</div>
+        </div>
+        <div class="ref-box" style="font-size:11px;">
+          <b>Utilização global:</b> max(U<sub>N</sub> ; U<sub>Mx</sub> + U<sub>My</sub>)<br>
+          U<sub>N</sub> = ${fmt(capacity.util_N,3)} | U<sub>Mx</sub> = ${fmt(capacity.util_Mx,3)} | U<sub>My</sub> = ${fmt(capacity.util_My,3)}<br>
+          <b>Bresler linear (α=1):</b> U<sub>Mx</sub> + U<sub>My</sub> ≤ 1,0 (conservador — NBR 6118:2023, 15.8.3.3.5)
+        </div>
+      </div>
+
+      <div class="cap-box">
+        <h3>🔬 Análise de Sensibilidade — variação de N<sub>Sd</sub></h3>
+        <div style="font-size:11px;color:#1e40af;margin-bottom:6px;">Se N<sub>Sd</sub> variar mantendo M<sub>Sd</sub> constante:</div>
+        <table>
+          <tr><th>ΔN</th><th>N<sub>d</sub> [kN]</th><th>M<sub>Rd,x</sub> [kN·m]</th><th>M<sub>Rd,y</sub> [kN·m]</th><th>Util.</th><th>Status</th></tr>
+          ${sensHtml}
+        </table>
+      </div>
+
+      <div class="ref-box" style="font-size:11px;">
+        <b>Método:</b> Curva de interação N-M calculada por varredura da linha neutra com bloco retangular de tensões (NBR 6118:2023, 17.2.2).<br>
+        <b>Limitações:</b> A flexão oblíqua é verificada pelo método de Bresler (α=1, conservador). Para análise mais refinada, é necessário o cálculo completo da superfície N-Mx-My.
+      </div>
+    `;
+  }
+
+  /* Painel método 2ª ordem */
   function renderMetodo2aInfo(inp,sec,mat,forces,ecc,slen,second){
-    const el=document.getElementById('metodo2a-info');
-    if(!el) return;
+    const el=document.getElementById('metodo2a-info');if(!el)return;
     const resCurv=Engine.secondOrderCurvatura(inp,sec,mat,forces);
     const resKap=Engine.secondOrderKappa(inp,sec,mat,forces,ecc,slen);
     const active=state.metodo2a;
@@ -921,7 +1062,7 @@ const App=(()=>{
       <div class="comp-box">
         <b>Comparação dos métodos (direção crítica: ${slen.critico.toUpperCase()})</b>
         <table>
-          <tr><th>Método</th><th>M<sub>1d,A</sub> [kN·m]</th><th>M<sub>2d</sub> [kN·m]</th><th>M<sub>tot</sub> [kN·m]</th><th>κ</th><th>Iter.</th></tr>
+          <tr><th>Método</th><th>M<sub>1d,A</sub></th><th>M<sub>2d</sub></th><th>M<sub>tot</sub></th><th>κ</th><th>Iter.</th></tr>
           <tr><td>${active==='curvatura'?'▶ ':''}Curvatura aproximada</td>
             <td class="num">${fmt(Math.max(Math.abs(forces.Mdx),forces.Nd*ecc.e1x/100))}</td>
             <td class="num">${fmt(resCurv.M2dx)}</td>
@@ -935,33 +1076,26 @@ const App=(()=>{
             <td class="num">${resKap.iterX}${resKap.divergeX?' ⚠':''}</td></tr>
         </table>
         <div style="font-size:11px;color:#64748b;margin-top:6px;">
-          α<sub>b</sub> = 1,0 (biapoiado com momentos iguais — NBR 6118:2023, 15.8.3.1.2)<br>
-          ν = N<sub>d</sub>/(A<sub>c</sub>·f<sub>cd</sub>) = ${second.nu.toFixed(3)}
-          ${resKap.divergeX?'<br><b style="color:#dc2626;">⚠ Rigidez κ não convergiu — fallback para curvatura aproximada.</b>':''}
+          α<sub>b</sub> = 1,0 (biapoiado com momentos iguais — NBR 6118:2023, 15.8.3.1.2) · ν = ${second.nu.toFixed(3)}
         </div>
       </div>
     `;
   }
 
-  function renderTables(inp,sec,mat,reinf,forces,slen,ecc,second,shear,verif,gz,alpha){
-    // Painel γn
+  function renderTables(inp,sec,mat,reinf,forces,slen,ecc,second,shear,verif,gz,alpha,capacity){
     const bMenor=Math.min(inp.b,inp.h);
     const gnInfo=document.getElementById('gn-info');
     if(gnInfo){
       if(bMenor>=19){
-        gnInfo.innerHTML=`<div class="ref-box">Menor dimensão b = ${bMenor} cm ≥ 19 cm → <b>γn = 1,00</b> (sem majoração adicional).</div>`;
+        gnInfo.innerHTML=`<div class="ref-box">b = ${bMenor} cm ≥ 19 cm → <b>γn = 1,00</b> (sem majoração).</div>`;
       }else if(bMenor>=14){
         gnInfo.innerHTML=`<div class="gn-box">
-          <b>⚠ Coeficiente adicional γn aplicado — NBR 6118:2023, Tabela 13.1</b><br>
-          Menor dimensão b = <b>${bMenor} cm</b> (14 cm ≤ b &lt; 19 cm)<br>
-          γn = 1,95 − 0,05·b = 1,95 − 0,05·${bMenor} = <b>${forces.gn.toFixed(2)}</b><br>
-          Efeito: <b>todos os esforços de cálculo foram multiplicados por ${forces.gn.toFixed(2)}</b><br>
-          N_Sd = ${forces.gn.toFixed(2)} × ${inp.gg} × ${inp.Nk} = <b>${forces.Nd.toFixed(2)} kN</b>
+          <b>⚠ Coeficiente adicional γn — NBR 6118:2023, Tabela 13.1</b><br>
+          b = <b>${bMenor} cm</b> (14 ≤ b &lt; 19) → γn = 1,95 − 0,05·b = <b>${forces.gn.toFixed(2)}</b><br>
+          Todos os esforços majorados por ${forces.gn.toFixed(2)}: N_Sd = <b>${forces.Nd.toFixed(2)} kN</b>
         </div>`;
       }else{
-        gnInfo.innerHTML=`<div class="alert err">
-          <b>b = ${bMenor} cm &lt; 14 cm — NÃO PERMITIDO pela NBR 6118:2023 (item 13.2.3).</b>
-        </div>`;
+        gnInfo.innerHTML=`<div class="alert err"><b>b = ${bMenor} cm < 14 cm — NÃO PERMITIDO pela NBR 6118:2023.</b></div>`;
       }
     }
 
@@ -990,7 +1124,7 @@ const App=(()=>{
     const cobOk=inp.cnom>=cMin;
     document.getElementById('cob-status').innerHTML=cobOk
       ?`<div class="alert ok">Cobrimento OK — c_nom = ${inp.cnom} mm ≥ ${cMin} mm.</div>`
-      :`<div class="alert err">Cobrimento INSUFICIENTE — c_nom = ${inp.cnom} mm < ${cMin} mm.</div>`;
+      :`<div class="alert err">Cobrimento INSUFICIENTE.</div>`;
     document.getElementById('tbl-arm').innerHTML=`
       <tr><th>Verificação</th><th>Valor</th><th>Situação</th></tr>
       <tr><td>A_s,ef</td><td class="num">${reinf.As.toFixed(2)} cm²</td><td>—</td></tr>
@@ -998,14 +1132,14 @@ const App=(()=>{
       <tr><td>A_s,max</td><td class="num">${verif.As_max.toFixed(2)} cm²</td><td>${reinf.As<=verif.As_max?'<span class="badge ok">OK</span>':'<span class="badge err">NÃO OK</span>'}</td></tr>
       <tr><td>Taxa ρ</td><td class="num">${verif.rho.toFixed(2)} %</td><td>${(verif.rho>=0.4&&verif.rho<=4)?'<span class="badge ok">OK</span>':'<span class="badge warn">Atenção</span>'}</td></tr>`;
     document.getElementById('tbl-esforcos').innerHTML=`
-      <tr><th>Esforço</th><th>Valor</th><th>Unidade</th><th>Observação</th></tr>
-      <tr><td>N_Sd</td><td class="num">${forces.Nd.toFixed(2)}</td><td>kN</td><td>γn = ${forces.gn.toFixed(2)} ${forces.gn>1?'(aplicado)':''}</td></tr>
+      <tr><th>Esforço</th><th>Valor</th><th>Unidade</th><th>Obs.</th></tr>
+      <tr><td>N_Sd</td><td class="num">${forces.Nd.toFixed(2)}</td><td>kN</td><td>γn=${forces.gn.toFixed(2)}</td></tr>
       <tr><td>M_Sd,x</td><td class="num">${forces.Mdx.toFixed(2)}</td><td>kN·m</td><td>1ª ordem</td></tr>
       <tr><td>M_Sd,y</td><td class="num">${forces.Mdy.toFixed(2)}</td><td>kN·m</td><td>1ª ordem</td></tr>
       <tr><td>V_Sd,x</td><td class="num">${forces.Vdx.toFixed(2)}</td><td>kN</td><td>—</td></tr>
       <tr><td>V_Sd,y</td><td class="num">${forces.Vdy.toFixed(2)}</td><td>kN</td><td>—</td></tr>
-      <tr><td>M_2d,x</td><td class="num">${second.M2dx.toFixed(2)}</td><td>kN·m</td><td>${second.metodo==='kappa'?'κ aprox.':'curvatura'}</td></tr>
-      <tr><td>M_2d,y</td><td class="num">${second.M2dy.toFixed(2)}</td><td>kN·m</td><td>${second.metodo==='kappa'?'κ aprox.':'curvatura'}</td></tr>
+      <tr><td>M_2d,x</td><td class="num">${second.M2dx.toFixed(2)}</td><td>kN·m</td><td>2ª ordem</td></tr>
+      <tr><td>M_2d,y</td><td class="num">${second.M2dy.toFixed(2)}</td><td>kN·m</td><td>2ª ordem</td></tr>
       <tr><td>M_tot,x</td><td class="num">${second.Mtotx.toFixed(2)}</td><td>kN·m</td><td>Total</td></tr>
       <tr><td>M_tot,y</td><td class="num">${second.Mtoty.toFixed(2)}</td><td>kN·m</td><td>Total</td></tr>`;
     document.getElementById('tbl-esb').innerHTML=`
@@ -1014,8 +1148,7 @@ const App=(()=>{
       <tr><td>λ_y</td><td class="num">${slen.ly.toFixed(2)}</td></tr>
       <tr><td>λ_crit (${slen.critico})</td><td class="num">${slen.lmax.toFixed(2)} — ${slen.clas}</td></tr>
       <tr><td>ν</td><td class="num">${second.nu.toFixed(3)}</td></tr>
-      <tr><td>e1x</td><td class="num">${ecc.ex1.toFixed(2)} cm</td></tr>
-      <tr><td>e1y</td><td class="num">${ecc.ey1.toFixed(2)} cm</td></tr>
+      <tr><td>e1x / e1y</td><td class="num">${ecc.e1x.toFixed(2)} / ${ecc.e1y.toFixed(2)} cm</td></tr>
       <tr><td>e_x,min / e_y,min</td><td class="num">${ecc.exMin.toFixed(2)} / ${ecc.eyMin.toFixed(2)} cm</td></tr>`;
 
     const alphaEl=document.getElementById('alpha-status');
@@ -1023,12 +1156,8 @@ const App=(()=>{
       if(isFinite(alpha.alpha)){
         alphaEl.innerHTML=`<table>
           <tr><th>Parâmetro</th><th>Valor</th></tr>
-          <tr><td>H<sub>tot</sub></td><td class="num">${inp.Htot} m</td></tr>
-          <tr><td>N<sub>k,tot</sub></td><td class="num">${inp.Nk_tot} kN</td></tr>
-          <tr><td>ΣE<sub>cs</sub>·I<sub>c</sub></td><td class="num">${inp.sumEI.toExponential(3)} kN·m²</td></tr>
-          <tr><td>n (níveis)</td><td class="num">${alpha.n}</td></tr>
-          <tr><td><b>α</b></td><td class="num"><b>${alpha.alpha.toFixed(4)}</b></td></tr>
-          <tr><td><b>α₁</b></td><td class="num"><b>${alpha.alpha1.toFixed(2)}</b></td></tr>
+          <tr><td>α</td><td class="num"><b>${alpha.alpha.toFixed(4)}</b></td></tr>
+          <tr><td>α₁</td><td class="num"><b>${alpha.alpha1.toFixed(2)}</b></td></tr>
         </table>
         <div class="alert ${alpha.nosFixos?'ok':'warn'}" style="margin-top:8px;">
           ${alpha.nosFixos?'α < α₁ → <b>NÓS FIXOS</b>':'α ≥ α₁ → <b>NÓS MÓVEIS</b>'}
@@ -1040,18 +1169,12 @@ const App=(()=>{
 
     document.getElementById('gz-status').innerHTML=`<table>
       <tr><th>Parâmetro</th><th>Valor</th></tr>
-      <tr><td>ΔM<sub>tot,d</sub></td><td class="num">${gz.dMtot.toFixed(2)} kN·m</td></tr>
-      <tr><td>M<sub>1,tot,d</sub></td><td class="num">${gz.M1tot.toFixed(2)} kN·m</td></tr>
       <tr><td>γ<sub>z</sub></td><td class="num"><b>${isFinite(gz.gz)?gz.gz.toFixed(3):'—'}</b></td></tr>
       <tr><td>0,95·γ<sub>z</sub></td><td class="num">${isFinite(gz.ampl)?gz.ampl.toFixed(3):'—'}</td></tr>
     </table>
-    <div class="ref-box" style="margin-top:8px;">
-      γz ≈ 1,00 → 2ª ordem inexistente | γz = 1,10 → 10% | γz = 1,20 → 20%<br>
-      γz ≤ 1,10 → nós fixos | 1,10 &lt; γz ≤ 1,30 → nós móveis | γz &gt; 1,30 → análise rigorosa
-    </div>
     ${isFinite(gz.gz)?(gz.gz<=1.10?'<div class="alert ok">γz ≤ 1,10 — Nós fixos.</div>'
       :gz.gz<=1.30?'<div class="alert warn">1,10 &lt; γz ≤ 1,30 — Nós móveis.</div>'
-      :'<div class="alert err">γz &gt; 1,30 — Análise rigorosa necessária.</div>'):''}`;
+      :'<div class="alert err">γz &gt; 1,30 — Análise rigorosa.</div>'):''}`;
 
     document.getElementById('tbl-verif').innerHTML=`
       <tr><th style="width:55%">Verificação</th><th>Ref.</th><th>Valor</th><th>Status</th></tr>
@@ -1063,58 +1186,58 @@ const App=(()=>{
       </tr>`).join('')}`;
     document.getElementById('tbl-results').innerHTML=`
       <tr><th>Parâmetro</th><th>Resultado</th><th>Unidade</th><th>Situação</th></tr>
-      ${resultRow('A_c',sec.Ac,'cm²',true)}
+      ${resultRow('N_Rd,max',capacity.NRd_max_norm,'kN',forces.Nd<=capacity.NRd_max_norm)}
+      ${resultRow('M_Rd,x @ Nd',capacity.MRd_x,'kN·m',Math.abs(forces.Mdx)<=capacity.MRd_x)}
+      ${resultRow('M_Rd,y @ Nd',capacity.MRd_y,'kN·m',Math.abs(forces.Mdy)<=capacity.MRd_y)}
       ${resultRow('A_s,ef',reinf.As,'cm²',reinf.As>=verif.As_min)}
       ${resultRow('ρ',verif.rho,'%',verif.rho>=0.4&&verif.rho<=4)}
       ${resultRow('λ crítico',slen.lmax,'—',slen.lmax<=90)}
       ${resultRow('γn',forces.gn,'—',true)}
-      ${resultRow('M_2d,x',second.M2dx,'kN·m',true)}
-      ${resultRow('M_tot,x',second.Mtotx,'kN·m',true)}
       ${resultRow('N_Sd',forces.Nd,'kN',true)}
       ${resultRow('V_Sd',shear.Vsd_max,'kN',shear.ok)}
-      ${resultRow('V_Rd2',shear.VRd2,'kN',true)}
       ${resultRow('α',alpha.alpha,'—',alpha.nosFixos)}
       ${resultRow('γz',gz.gz,'—',gz.gz<=1.30)}
-      ${resultRow('Utilização',verif.util.util,'—',verif.util.ok)}`;
+      ${resultRow('Utilização',capacity.util,'—',capacity.util<=1)}`;
   }
   function resultRow(name,val,unit,ok){
     const v=typeof val==='number'?(isFinite(val)?val.toFixed(unit==='%'||unit==='—'?3:2):'—'):val;
     return `<tr><td>${name}</td><td class="num">${v}</td><td>${unit}</td><td>${ok?'<span class="badge ok">OK</span>':'<span class="badge err">NÃO OK</span>'}</td></tr>`;
   }
 
-  function renderDashboard(inp,sec,mat,reinf,forces,slen,ecc,second,verif,gz,shear,alpha){
-    document.getElementById('dash-info').innerHTML=`<b>${inp.obra||'—'}</b> · ${inp.pav||'—'} · Pilar <b>${inp.pilar||'—'}</b> · ${inp.b}×${inp.h} cm · fck=${inp.fck} MPa · ${inp.nb}Ø${inp.dl} · método 2ª ordem: <b>${second.metodo==='kappa'?'κ aproximada':'curvatura aproximada'}</b>${forces.gn>1?` · <span style="color:#d97706;">γn = ${forces.gn.toFixed(2)}</span>`:''}`;
-    const util=verif.util.util;
-    const msd=Math.max(forces.Mdx,forces.Mdy);
+  function renderDashboard(inp,sec,mat,reinf,forces,slen,ecc,second,verif,gz,shear,alpha,capacity){
+    document.getElementById('dash-info').innerHTML=`<b>${inp.obra||'—'}</b> · ${inp.pav||'—'} · Pilar <b>${inp.pilar||'—'}</b> · ${inp.b}×${inp.h} cm · fck=${inp.fck} MPa · ${inp.nb}Ø${inp.dl}${forces.gn>1?` · <span style="color:#d97706;">γn = ${forces.gn.toFixed(2)}</span>`:''}`;
+    const util=capacity.util;
     const situacao=util<=1.0?'ATENDE':'NÃO ATENDE';
     const situacaoClass=util<=1.0?'ok':'err';
     document.getElementById('dash-metrics').innerHTML=`
       ${metric('N_Sd',forces.Nd.toFixed(1),'kN','info')}
-      ${metric('M_Sd',msd.toFixed(1),'kN·m','info')}
+      ${metric('N_Rd,max',capacity.NRd_max_norm.toFixed(1),'kN',forces.Nd<=capacity.NRd_max_norm?'ok':'err')}
+      ${metric('M_Rd,x @ Nd',capacity.MRd_x.toFixed(1),'kN·m',Math.abs(forces.Mdx)<=capacity.MRd_x?'ok':'err')}
       ${metric('λ',slen.lmax.toFixed(1),'',slen.lmax<=90?'ok':'warn')}
       ${metric('γn',forces.gn.toFixed(2),'',forces.gn>1?'warn':'ok')}
-      ${metric('γz',isFinite(gz.gz)?gz.gz.toFixed(3):'—','',gz.gz<=1.10?'ok':gz.gz<=1.30?'warn':'err')}
       ${metric('Utilização',util.toFixed(3),'',util<=1?'ok':'err')}
+      ${metric('Fator folga',isFinite(capacity.fator_folga)?capacity.fator_folga.toFixed(2)+'×':'—','',util<=1?'ok':'err')}
+      ${metric('γz',isFinite(gz.gz)?gz.gz.toFixed(3):'—','',gz.gz<=1.10?'ok':gz.gz<=1.30?'warn':'err')}
       ${metric('Situação',situacao,'',situacaoClass)}`;
     const alerts=[];
-    if(forces.gn>1)alerts.push(['warn',`Menor dimensão b = ${forces.bMenor} cm ∈ [14;19) — γn = ${forces.gn.toFixed(2)} aplicado em TODOS os esforços (NBR 6118:2023, 13.2.3).`]);
-    if(slen.lmax>90)alerts.push(['warn',`Esbeltez elevada (λ = ${slen.lmax.toFixed(1)}).`]);
-    if(second.M2dx/Math.max(forces.Mdx,0.01)>0.5)alerts.push(['warn','Momento de 2ª ordem significativo.']);
-    if(reinf.As<verif.As_min)alerts.push(['err',`A_s abaixo do mínimo (${verif.As_min.toFixed(2)} cm²).`]);
-    if(reinf.As>verif.As_max)alerts.push(['err','A_s acima do máximo (8% Ac).']);
-    if(!verif.util.ok)alerts.push(['err','Flexão composta NÃO atendida.']);
-    if(util>1.0)alerts.push(['err','Índice de utilização > 1,00.']);
-    if(gz.gz>1.30)alerts.push(['err','γz > 1,30 — método simplificado não aplicável.']);
-    if(!alpha.nosFixos)alerts.push(['warn',`α = ${alpha.alpha.toFixed(3)} ≥ α₁ = ${alpha.alpha1} → nós móveis.`]);
-    if(shear&&!shear.ok)alerts.push(['err','Verificação ao cortante NÃO atendida.']);
-    const m2aLabel=second.metodo==='kappa'?'Rigidez κ aproximada (15.8.3.3.3)':'Curvatura aproximada (15.8.3.3.2)';
-    alerts.push(['info',`Método do pilar-padrão com ${m2aLabel}.`]);
+    if(forces.gn>1) alerts.push(['warn',`b = ${forces.bMenor} cm ∈ [14;19) — γn = ${forces.gn.toFixed(2)} aplicado (NBR 6118:2023, 13.2.3).`]);
+    if(forces.Nd>capacity.NRd_max_norm) alerts.push(['err',`N_Sd (${forces.Nd.toFixed(1)}) > N_Rd,max (${capacity.NRd_max_norm.toFixed(1)}) kN.`]);
+    if(Math.abs(forces.Mdx)>capacity.MRd_x) alerts.push(['err',`M_Sd,x > M_Rd,x @ N_Sd.`]);
+    if(Math.abs(forces.Mdy)>capacity.MRd_y) alerts.push(['err',`M_Sd,y > M_Rd,y @ N_Sd.`]);
+    if(slen.lmax>90) alerts.push(['warn',`Esbeltez elevada (λ = ${slen.lmax.toFixed(1)}).`]);
+    if(second.M2dx/Math.max(forces.Mdx,0.01)>0.5) alerts.push(['warn','M₂ significativo.']);
+    if(reinf.As<verif.As_min) alerts.push(['err',`A_s abaixo do mínimo.`]);
+    if(reinf.As>verif.As_max) alerts.push(['err','A_s acima do máximo.']);
+    if(util>1.0) alerts.push(['err','Utilização > 1,00 — NÃO ATENDE.']);
+    if(gz.gz>1.30) alerts.push(['err','γz > 1,30 — método simplificado não aplicável.']);
+    if(!alpha.nosFixos) alerts.push(['warn',`α = ${alpha.alpha.toFixed(3)} ≥ α₁ → nós móveis.`]);
+    if(shear&&!shear.ok) alerts.push(['err','Cortante NÃO atendido.']);
     document.getElementById('dash-alerts').innerHTML=alerts.map(([t,m])=>`<div class="alert ${t}">${m}</div>`).join('');
     let concl;
     if(util<=1.0&&verif.checks.every(c=>c.ok!==false)){
-      concl=`<div class="alert ok"><b>Conclusão:</b> Pilar verificado para as condições informadas.${forces.gn>1?` (com majoração γn = ${forces.gn.toFixed(2)}).`:''}</div>`;
-    }else if(!verif.util.ok){
-      concl=`<div class="alert err"><b>Conclusão:</b> Pilar NÃO ATENDE aos critérios implementados.</div>`;
+      concl=`<div class="alert ok"><b>Conclusão:</b> Pilar verificado. Folga de <b>${isFinite(capacity.fator_folga)?(capacity.fator_folga*100-100).toFixed(0):'—'}%</b> em relação ao limite.</div>`;
+    }else if(util>1.0){
+      concl=`<div class="alert err"><b>Conclusão:</b> Pilar NÃO ATENDE. Utilização = ${util.toFixed(3)} (>1). Reduzir esforços ou aumentar seção/armadura.</div>`;
     }else{
       concl=`<div class="alert warn"><b>Conclusão:</b> Pilar atende parcialmente, com alertas.</div>`;
     }
@@ -1138,17 +1261,19 @@ const App=(()=>{
       const gz=Engine.gammaZ(inp);
       const alpha=Engine.alphaParameter(inp);
       const interaction=Engine.interaction(inp,sec,mat,reinf);
-      const verif=Engine.verification(inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha);
+      const capacity=Engine.capacity(inp,sec,mat,reinf,forces,interaction);
+      const verif=Engine.verification(inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha,capacity);
       const prof=Engine.profile(inp,sec,mat,forces,second);
-      state.results={inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha,verif,prof,interaction};
+      state.results={inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha,verif,prof,interaction,capacity};
 
       renderSvgSection('svg-secao',inp,sec);
       renderSvgSection('svg-secao2',inp,sec);
       renderSvgDeform(inp,sec,mat,forces,second,reinf);
-      renderTables(inp,sec,mat,reinf,forces,slen,ecc,second,shear,verif,gz,alpha);
-      renderDashboard(inp,sec,mat,reinf,forces,slen,ecc,second,verif,gz,shear,alpha);
-      renderCharts(inp,sec,mat,forces,second,slen,ecc,prof,interaction,gz,alpha);
+      renderTables(inp,sec,mat,reinf,forces,slen,ecc,second,shear,verif,gz,alpha,capacity);
+      renderDashboard(inp,sec,mat,reinf,forces,slen,ecc,second,verif,gz,shear,alpha,capacity);
+      renderCharts(inp,sec,mat,forces,second,slen,ecc,prof,capacity,gz,alpha);
       renderMetodo2aInfo(inp,sec,mat,forces,ecc,slen,second);
+      renderCapacityPanel(inp,sec,mat,reinf,forces,capacity);
 
       document.getElementById('in_asef').value=reinf.As.toFixed(2);
       flushPendingCharts();
@@ -1179,12 +1304,7 @@ const App=(()=>{
       try{
         const p=JSON.parse(r.result),d=p.data||p;
         Object.keys(d).forEach(k=>{const el=document.getElementById('in_'+k);if(el)el.value=d[k];});
-        if(p.metodo2a){
-          state.metodo2a=p.metodo2a;
-          document.querySelectorAll('[data-metodo2a]').forEach(x=>{
-            x.classList.toggle('active',x.dataset.metodo2a===p.metodo2a);
-          });
-        }
+        if(p.metodo2a){state.metodo2a=p.metodo2a;document.querySelectorAll('[data-metodo2a]').forEach(x=>{x.classList.toggle('active',x.dataset.metodo2a===p.metodo2a);});}
         recalc();alert('Projeto importado.');
       }catch(e){alert('Arquivo inválido.');}
     };
@@ -1195,12 +1315,7 @@ const App=(()=>{
     try{
       const p=JSON.parse(raw),d=p.data||p;
       Object.keys(d).forEach(k=>{const el=document.getElementById('in_'+k);if(el)el.value=d[k];});
-      if(p.metodo2a){
-        state.metodo2a=p.metodo2a;
-        document.querySelectorAll('[data-metodo2a]').forEach(x=>{
-          x.classList.toggle('active',x.dataset.metodo2a===p.metodo2a);
-        });
-      }
+      if(p.metodo2a){state.metodo2a=p.metodo2a;document.querySelectorAll('[data-metodo2a]').forEach(x=>{x.classList.toggle('active',x.dataset.metodo2a===p.metodo2a);});}
     }catch(e){}
   }
 
@@ -1215,25 +1330,12 @@ const App=(()=>{
     },80);});});
   }
   function bindTabs(){
-    document.querySelectorAll('[data-tab]').forEach(btn=>{
-      btn.addEventListener('click',()=>switchTab(btn.dataset.tab));
-    });
+    document.querySelectorAll('[data-tab]').forEach(btn=>{btn.addEventListener('click',()=>switchTab(btn.dataset.tab));});
   }
   function bindPills(){
-    document.querySelectorAll('[data-mode]').forEach(p=>{
-      p.addEventListener('click',()=>{document.querySelectorAll('[data-mode]').forEach(x=>x.classList.remove('active'));p.classList.add('active');state.mode=p.dataset.mode;});
-    });
-    document.querySelectorAll('[data-nivel]').forEach(p=>{
-      p.addEventListener('click',()=>{document.querySelectorAll('[data-nivel]').forEach(x=>x.classList.remove('active'));p.classList.add('active');state.nivel=p.dataset.nivel;});
-    });
-    document.querySelectorAll('[data-metodo2a]').forEach(p=>{
-      p.addEventListener('click',()=>{
-        document.querySelectorAll('[data-metodo2a]').forEach(x=>x.classList.remove('active'));
-        p.classList.add('active');
-        state.metodo2a=p.dataset.metodo2a;
-        recalc();
-      });
-    });
+    document.querySelectorAll('[data-mode]').forEach(p=>{p.addEventListener('click',()=>{document.querySelectorAll('[data-mode]').forEach(x=>x.classList.remove('active'));p.classList.add('active');state.mode=p.dataset.mode;});});
+    document.querySelectorAll('[data-nivel]').forEach(p=>{p.addEventListener('click',()=>{document.querySelectorAll('[data-nivel]').forEach(x=>x.classList.remove('active'));p.classList.add('active');state.nivel=p.dataset.nivel;});});
+    document.querySelectorAll('[data-metodo2a]').forEach(p=>{p.addEventListener('click',()=>{document.querySelectorAll('[data-metodo2a]').forEach(x=>x.classList.remove('active'));p.classList.add('active');state.metodo2a=p.dataset.metodo2a;recalc();});});
   }
   function bindInputs(){
     document.querySelectorAll('input,select').forEach(el=>{
@@ -1270,51 +1372,22 @@ window.runPDelta=function(){
     const res=App.Engine.pDelta(r.inp,r.sec,r.mat);
     let html=`<table>
       <tr><th>Iter.</th><th>Δ<sub>n-1</sub> [m]</th><th>F<sub>f</sub> [kN]</th><th>ΔM [kN·m]</th><th>M [kN·m]</th><th>Erro [%]</th></tr>`;
-    res.iter.forEach(it=>{
-      html+=`<tr><td>${it.n}</td>
-        <td class="num">${it.d.toExponential(4)}</td>
-        <td class="num">${it.Ff.toFixed(3)}</td>
-        <td class="num">${it.dM.toFixed(3)}</td>
-        <td class="num"><b>${it.M.toFixed(3)}</b></td>
-        <td class="num">${it.err.toFixed(4)}</td>
-      </tr>`;
-    });
-    html+=`</table>
-      <div class="alert ok" style="margin-top:8px;">
-        <b>Momento final na base (P-Δ): M = ${res.finalM.toFixed(3)} kN·m</b><br>
-        <b>Deslocamento inicial Δ₀ = ${res.Delta0.toExponential(4)} m = ${(res.Delta0*1000).toFixed(4)} mm</b><br>
-        Iterações: ${res.iter.length-1} | EI<sub>sec</sub> = ${res.EIsec.toExponential(4)} kN·m²
-      </div>
+    res.iter.forEach(it=>{html+=`<tr><td>${it.n}</td><td class="num">${it.d.toExponential(4)}</td><td class="num">${it.Ff.toFixed(3)}</td><td class="num">${it.dM.toFixed(3)}</td><td class="num"><b>${it.M.toFixed(3)}</b></td><td class="num">${it.err.toFixed(4)}</td></tr>`;});
+    html+=`</table><div class="alert ok" style="margin-top:8px;"><b>M final (P-Δ): ${res.finalM.toFixed(3)} kN·m</b><br>Δ₀ = ${(res.Delta0*1000).toFixed(4)} mm | Iterações: ${res.iter.length-1}</div>
       <div class="chart-wrap" style="height:240px;margin-top:10px;"><canvas id="chart-pdelta"></canvas></div>`;
     document.getElementById('pd-status').innerHTML=html;
-
     if(typeof Chart!=='undefined'){
-      const labels=res.iter.map(it=>'It '+it.n);
-      const dataM=res.iter.map(it=>it.M);
-      const dataDelta=res.iter.map(it=>it.d*1000);
+      const labels=res.iter.map(it=>'It '+it.n),dataM=res.iter.map(it=>it.M),dataDelta=res.iter.map(it=>it.d*1000);
       if(window.__pdChart){try{window.__pdChart.destroy();}catch(e){}}
       const canvas=document.getElementById('chart-pdelta');
       if(canvas){
-        window.__pdChart=new Chart(canvas,{
-          type:'line',
-          data:{labels,datasets:[
-            {label:'M [kN·m]',data:dataM,borderColor:'#dc2626',backgroundColor:'rgba(220,38,38,.1)',tension:.2,pointRadius:3,borderWidth:2,yAxisID:'y'},
-            {label:'Δ [mm]',data:dataDelta,borderColor:'#1f6fbf',backgroundColor:'rgba(31,111,191,.1)',tension:.2,pointRadius:3,borderWidth:2,yAxisID:'y1'}
-          ]},
-          options:{responsive:true,maintainAspectRatio:false,
-            plugins:{legend:{position:'bottom'}},
-            scales:{
-              y:{type:'linear',position:'left',title:{display:true,text:'M [kN·m]'}},
-              y1:{type:'linear',position:'right',title:{display:true,text:'Δ [mm]'},grid:{drawOnChartArea:false}}
-            }
-          }
-        });
+        window.__pdChart=new Chart(canvas,{type:'line',data:{labels,datasets:[
+          {label:'M [kN·m]',data:dataM,borderColor:'#dc2626',tension:.2,pointRadius:3,borderWidth:2,yAxisID:'y'},
+          {label:'Δ [mm]',data:dataDelta,borderColor:'#1f6fbf',tension:.2,pointRadius:3,borderWidth:2,yAxisID:'y1'}
+        ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{type:'linear',position:'left',title:{display:true,text:'M [kN·m]'}},y1:{type:'linear',position:'right',title:{display:true,text:'Δ [mm]'},grid:{drawOnChartArea:false}}}}});
       }
     }
-  }catch(e){
-    console.error('P-Δ erro:',e);
-    document.getElementById('pd-status').innerHTML='<div class="alert err">Erro ao executar P-Δ: '+e.message+'</div>';
-  }
+  }catch(e){console.error('P-Δ:',e);document.getElementById('pd-status').innerHTML='<div class="alert err">Erro: '+e.message+'</div>';}
 };
 
 /* MEMORIAL */
@@ -1322,58 +1395,44 @@ const Report=(()=>{
   function generate(){
     const r=App.state.results;
     if(!r){document.getElementById('memorial-out').innerHTML='<div class="alert err">Sem dados.</div>';return;}
-    const{inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha,verif}=r;
+    const{inp,sec,mat,reinf,forces,slen,ecc,second,shear,gz,alpha,verif,capacity}=r;
     const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-    const metodoLabel=second.metodo==='kappa'
-      ?'Método do pilar-padrão com rigidez κ aproximada (item 15.8.3.3.3)'
-      :'Método do pilar-padrão com curvatura aproximada (item 15.8.3.3.2)';
+    const metodoLabel=second.metodo==='kappa'?'Pilar-padrão com rigidez κ aproximada (15.8.3.3.3)':'Pilar-padrão com curvatura aproximada (15.8.3.3.2)';
     let secaoMetodo='';
     if(second.metodo==='kappa'){
-      secaoMetodo=`
-        <h3>6. Efeitos de 2ª ordem — Rigidez κ aproximada (15.8.3.3.3)</h3>
-        <p><b>Fórmula:</b> M<sub>tot</sub> = α<sub>b</sub> · M<sub>1d,A</sub> / [1 − λ² / (120·κ)]</p>
-        <p><b>Rigidez adimensional:</b> κ = 32 · [1 + 5·h·ν / (α<sub>b</sub>·M<sub>1d,A</sub>/N<sub>d</sub>)]</p>
-        <p>ν = N<sub>d</sub> / (A<sub>c</sub>·f<sub>cd</sub>) = ${second.nu.toFixed(3)}</p>
-        <p>α<sub>b</sub> = ${second.alphaB.toFixed(2)} (biapoiado com momentos iguais — 15.8.3.1.2)</p>
-        <table>
-          <tr><th>Direção</th><th>λ</th><th>h [m]</th><th>M<sub>1d,A</sub> [kN·m]</th><th>κ</th><th>M<sub>2d</sub> [kN·m]</th><th>M<sub>tot</sub> [kN·m]</th><th>Iter.</th></tr>
-          <tr><td>X</td><td class="num">${slen.lx.toFixed(2)}</td><td class="num">${(sec.h/100).toFixed(3)}</td><td class="num">${second.M1dA_x.toFixed(2)}</td><td class="num">${second.kappaX.toFixed(2)}</td><td class="num">${second.M2dx.toFixed(2)}</td><td class="num"><b>${second.Mtotx.toFixed(2)}</b></td><td class="num">${second.iterX}</td></tr>
-          <tr><td>Y</td><td class="num">${slen.ly.toFixed(2)}</td><td class="num">${(sec.b/100).toFixed(3)}</td><td class="num">${second.M1dA_y.toFixed(2)}</td><td class="num">${second.kappaY.toFixed(2)}</td><td class="num">${second.M2dy.toFixed(2)}</td><td class="num"><b>${second.Mtoty.toFixed(2)}</b></td><td class="num">${second.iterY}</td></tr>
-        </table>
-        <p><b>Momentos totais de cálculo:</b> M<sub>tot,x</sub> = ${second.Mtotx.toFixed(2)} kN·m ; M<sub>tot,y</sub> = ${second.Mtoty.toFixed(2)} kN·m</p>
-      `;
+      secaoMetodo=`<h3>6. Efeitos de 2ª ordem — Rigidez κ (15.8.3.3.3)</h3>
+        <p>M<sub>tot</sub> = α<sub>b</sub>·M<sub>1d,A</sub>/[1 − λ²/(120·κ)] ; κ = 32·[1 + 5·h·ν/(α<sub>b</sub>·M<sub>1d,A</sub>/N<sub>d</sub>)]</p>
+        <p>ν = ${second.nu.toFixed(3)} ; α<sub>b</sub> = ${second.alphaB}</p>
+        <table><tr><th>Dir.</th><th>λ</th><th>M<sub>1d,A</sub></th><th>κ</th><th>M<sub>2d</sub></th><th>M<sub>tot</sub></th></tr>
+          <tr><td>X</td><td>${slen.lx.toFixed(2)}</td><td>${second.M1dA_x.toFixed(2)}</td><td>${second.kappaX.toFixed(2)}</td><td>${second.M2dx.toFixed(2)}</td><td><b>${second.Mtotx.toFixed(2)}</b></td></tr>
+          <tr><td>Y</td><td>${slen.ly.toFixed(2)}</td><td>${second.M1dA_y.toFixed(2)}</td><td>${second.kappaY.toFixed(2)}</td><td>${second.M2dy.toFixed(2)}</td><td><b>${second.Mtoty.toFixed(2)}</b></td></tr>
+        </table>`;
     }else{
-      secaoMetodo=`
-        <h3>6. Efeitos de 2ª ordem — Curvatura aproximada (15.8.3.3.2)</h3>
-        <p><b>Curvatura:</b> 1/r = 0,005 / [h·(ν + 0,5)] ≤ 0,005/h</p>
+      secaoMetodo=`<h3>6. Efeitos de 2ª ordem — Curvatura aproximada (15.8.3.3.2)</h3>
+        <p>1/r = 0,005/[h·(ν+0,5)] ≤ 0,005/h ; M<sub>2d</sub> = N<sub>d</sub>·l<sub>e</sub>²/10·(1/r)</p>
         <p>ν = ${second.nu.toFixed(3)} ; 1/r_x = ${second.invRx.toFixed(6)} m⁻¹ ; 1/r_y = ${second.invRy.toFixed(6)} m⁻¹</p>
-        <p><b>Momento de 2ª ordem:</b> M<sub>2d</sub> = N<sub>d</sub> · l<sub>e</sub>² / 10 · (1/r)</p>
         <p>M<sub>2d,x</sub> = ${second.M2dx.toFixed(2)} kN·m ; M<sub>2d,y</sub> = ${second.M2dy.toFixed(2)} kN·m</p>
-        <p><b>Momento total:</b> M<sub>tot,x</sub> = ${second.Mtotx.toFixed(2)} kN·m ; M<sub>tot,y</sub> = ${second.Mtoty.toFixed(2)} kN·m</p>
-      `;
+        <p>M<sub>tot,x</sub> = ${second.Mtotx.toFixed(2)} kN·m ; M<sub>tot,y</sub> = ${second.Mtoty.toFixed(2)} kN·m</p>`;
     }
 
-    // Seção γn se aplicável
     let secaoGn='';
     if(forces.gn>1){
-      secaoGn=`
-        <h3>5.1 Majoração γn por dimensão mínima (NBR 6118:2023, 13.2.3 + Tabela 13.1)</h3>
-        <p>Menor dimensão b = <b>${forces.bMenor} cm</b> ∈ [14; 19) → <b>γn = 1,95 − 0,05·b = ${forces.gn.toFixed(2)}</b></p>
-        <p><b>Efeito:</b> todos os esforços solicitantes de cálculo foram majorados por γn.</p>
-        <table>
-          <tr><th>Esforço</th><th>Sem γn</th><th>Com γn</th></tr>
-          <tr><td>N_Sd</td><td class="num">${(inp.gn*inp.gg*inp.Nk).toFixed(2)} kN</td><td class="num"><b>${forces.Nd.toFixed(2)} kN</b></td></tr>
-          <tr><td>M_Sd,x</td><td class="num">${(inp.gg*inp.Mkx).toFixed(2)} kN·m</td><td class="num"><b>${forces.Mdx.toFixed(2)} kN·m</b></td></tr>
-          <tr><td>M_Sd,y</td><td class="num">${(inp.gg*inp.Mky).toFixed(2)} kN·m</td><td class="num"><b>${forces.Mdy.toFixed(2)} kN·m</b></td></tr>
-        </table>
-      `;
+      secaoGn=`<h3>5.1 Majoração γn (13.2.3 + Tabela 13.1)</h3>
+        <p>b = <b>${forces.bMenor} cm</b> ∈ [14;19) → γn = 1,95 − 0,05·${forces.bMenor} = <b>${forces.gn.toFixed(2)}</b></p>
+        <p>Todos os esforços majorados por γn.</p>`;
     }
+
+    let sensHtml='';
+    capacity.sens.forEach(s=>{
+      const dfPct=(s.df*100).toFixed(0);
+      const lbl=dfPct>0?'+'+dfPct:dfPct;
+      sensHtml+=`<tr><td>${lbl}%</td><td>${s.Nd.toFixed(2)}</td><td>${s.MRd_x.toFixed(2)}</td><td>${s.MRd_y.toFixed(2)}</td><td><b>${isFinite(s.util)?s.util.toFixed(3):'∞'}</b></td><td>${s.util<=1?'OK':'NÃO OK'}</td></tr>`;
+    });
 
     const html=`
       <div style="font-family:Arial,sans-serif;font-size:12px;line-height:1.5;">
         <h2 style="color:#0b2e4f;">MEMORIAL DE CÁLCULO — APavan Pilares</h2>
-        <p><b>Norma:</b> ABNT NBR 6118:2023.</p>
-        <p><b>Método de 2ª ordem:</b> ${metodoLabel}</p>
+        <p><b>Norma:</b> ABNT NBR 6118:2023. <b>Método 2ª ordem:</b> ${metodoLabel}</p>
         <h3>1. Identificação</h3>
         <table>
           <tr><td>Obra</td><td>${esc(inp.obra||'—')}</td></tr>
@@ -1385,23 +1444,21 @@ const Report=(()=>{
         </table>
         <h3>2. Dados de Entrada</h3>
         <table>
-          <tr><th>Parâmetro</th><th>Valor</th><th>Unid.</th></tr>
-          <tr><td>Seção</td><td>${inp.b} × ${inp.h}</td><td>cm</td></tr>
-          <tr><td>l / l_e</td><td>${inp.l} / ${inp.le}</td><td>m</td></tr>
-          <tr><td>f_ck / f_yk</td><td>${inp.fck} / ${inp.fyk}</td><td>MPa</td></tr>
-          <tr><td>Aço long.</td><td>${inp.nb} Ø ${inp.dl}</td><td>mm</td></tr>
-          <tr><td>Estribos</td><td>Ø ${inp.dt} c/ ${inp.s}</td><td>mm/cm</td></tr>
-          <tr><td>N_k / M_kx / M_ky</td><td>${inp.Nk} / ${inp.Mkx} / ${inp.Mky}</td><td>kN, kN·m</td></tr>
-          <tr><td>γn</td><td><b>${forces.gn.toFixed(2)}</b></td><td>—</td></tr>
+          <tr><td>Seção</td><td>${inp.b} × ${inp.h} cm</td></tr>
+          <tr><td>l / l_e</td><td>${inp.l} / ${inp.le} m</td></tr>
+          <tr><td>f_ck / f_yk</td><td>${inp.fck} / ${inp.fyk} MPa</td></tr>
+          <tr><td>Aço</td><td>${inp.nb} Ø ${inp.dl} mm</td></tr>
+          <tr><td>N_k / M_kx / M_ky</td><td>${inp.Nk} kN / ${inp.Mkx} / ${inp.Mky} kN·m</td></tr>
+          <tr><td>γn</td><td><b>${forces.gn.toFixed(2)}</b></td></tr>
         </table>
         <h3>3. Materiais</h3>
         <table>
-          <tr><td>f_cd = fck/γc</td><td>${mat.fcd.toFixed(2)} MPa</td></tr>
-          <tr><td>f_yd = fyk/γs</td><td>${mat.fyd.toFixed(2)} MPa</td></tr>
+          <tr><td>f_cd</td><td>${mat.fcd.toFixed(2)} MPa</td></tr>
+          <tr><td>f_yd</td><td>${mat.fyd.toFixed(2)} MPa</td></tr>
           <tr><td>E_ci / E_cs</td><td>${mat.Eci.toFixed(0)} / ${mat.Ecs.toFixed(0)} MPa</td></tr>
           <tr><td>ε_c2 / ε_cu</td><td>${mat.ec2.toFixed(2)} / ${mat.ecu.toFixed(2)} ‰</td></tr>
         </table>
-        <h3>4. Esforços de Cálculo (ELU)</h3>
+        <h3>4. Esforços de Cálculo</h3>
         <table>
           <tr><td>N_Sd</td><td>${forces.Nd.toFixed(2)} kN</td></tr>
           <tr><td>M_Sd,x / M_Sd,y</td><td>${forces.Mdx.toFixed(2)} / ${forces.Mdy.toFixed(2)} kN·m</td></tr>
@@ -1411,32 +1468,45 @@ const Report=(()=>{
         <h3>5. Esbeltez e Excentricidades</h3>
         <table>
           <tr><td>λ_x / λ_y</td><td>${slen.lx.toFixed(2)} / ${slen.ly.toFixed(2)}</td></tr>
-          <tr><td>λ_crit (${slen.critico})</td><td>${slen.lmax.toFixed(2)} (${slen.clas})</td></tr>
+          <tr><td>λ_crit</td><td>${slen.lmax.toFixed(2)} (${slen.clas})</td></tr>
           <tr><td>e1x / e1y</td><td>${ecc.e1x.toFixed(2)} / ${ecc.e1y.toFixed(2)} cm</td></tr>
         </table>
         ${secaoMetodo}
-        <h3>7. Rigidez Aproximada NLF (15.7.3)</h3>
-        <p>Lajes: 0,3·Eci·Ic | Vigas: 0,4 ou 0,5·Eci·Ic | Pilares: 0,8·Eci·Ic</p>
-        <h3>8. Armaduras</h3>
+        <h3>6.1 Capacidade Resistente</h3>
+        <table>
+          <tr><th>Parâmetro</th><th>Valor</th><th>Unidade</th></tr>
+          <tr><td>N_Rd,max (compressão centrada)</td><td>${capacity.NRd_max_norm.toFixed(2)}</td><td>kN</td></tr>
+          <tr><td>N_Rd,min (curva)</td><td>${capacity.NRd_min_curve.toFixed(2)}</td><td>kN</td></tr>
+          <tr><td>M_Rd,x @ N_Sd</td><td>${capacity.MRd_x.toFixed(2)}</td><td>kN·m</td></tr>
+          <tr><td>M_Rd,y @ N_Sd</td><td>${capacity.MRd_y.toFixed(2)}</td><td>kN·m</td></tr>
+          <tr><td>Margem em N</td><td>${capacity.margem_N.toFixed(2)}</td><td>kN</td></tr>
+          <tr><td>Margem em M_x</td><td>${capacity.margem_Mx.toFixed(2)}</td><td>kN·m</td></tr>
+          <tr><td>Margem em M_y</td><td>${capacity.margem_My.toFixed(2)}</td><td>kN·m</td></tr>
+          <tr><td>Fator de folga</td><td>${isFinite(capacity.fator_folga)?capacity.fator_folga.toFixed(3):'—'}</td><td>—</td></tr>
+        </table>
+        <h3>6.2 Análise de Sensibilidade</h3>
+        <table>
+          <tr><th>ΔN</th><th>N_d [kN]</th><th>M_Rd,x [kN·m]</th><th>M_Rd,y [kN·m]</th><th>Util.</th><th>Status</th></tr>
+          ${sensHtml}
+        </table>
+        <h3>7. Armaduras</h3>
         <p>A_s,ef = ${reinf.As.toFixed(2)} cm² | A_s,min = ${verif.As_min.toFixed(2)} | A_s,max = ${verif.As_max.toFixed(2)} | ρ = ${verif.rho.toFixed(2)} %</p>
-        <h3>9. Cortante</h3>
-        <p>V_c = ${shear.Vc.toFixed(2)} kN | V_Rd2 = ${shear.VRd2.toFixed(2)} kN | V_Sd,max = ${shear.Vsd_max.toFixed(2)} kN → ${shear.ok?'OK':'NÃO OK'}</p>
-        <h3>10. Parâmetro de Instabilidade α (15.5.2)</h3>
-        <p>α = H_tot · √(N_k,tot / ΣE_cs·I_c) = ${inp.Htot} · √(${inp.Nk_tot} / ${inp.sumEI.toExponential(4)}) = <b>${alpha.alpha.toFixed(4)}</b></p>
-        <p>α₁ = ${alpha.alpha1.toFixed(2)} → ${alpha.nosFixos?'<b>NÓS FIXOS</b>':'<b>NÓS MÓVEIS</b>'}</p>
-        <h3>11. Estabilidade Global — γz (15.5.3)</h3>
-        <p>γz = 1/(1 − ${gz.dMtot}/${gz.M1tot}) = <b>${gz.gz.toFixed(3)}</b></p>
-        <p>Amplificação 0,95·γz = ${gz.ampl.toFixed(3)} — ${gz.classe}</p>
-        <h3>12. Verificações</h3>
+        <h3>8. Cortante</h3>
+        <p>V_c = ${shear.Vc.toFixed(2)} | V_Rd2 = ${shear.VRd2.toFixed(2)} | V_Sd,max = ${shear.Vsd_max.toFixed(2)} kN → ${shear.ok?'OK':'NÃO OK'}</p>
+        <h3>9. Parâmetro α (15.5.2)</h3>
+        <p>α = ${inp.Htot}·√(${inp.Nk_tot}/${inp.sumEI.toExponential(4)}) = <b>${alpha.alpha.toFixed(4)}</b> ; α₁ = ${alpha.alpha1.toFixed(2)} → ${alpha.nosFixos?'NÓS FIXOS':'NÓS MÓVEIS'}</p>
+        <h3>10. Estabilidade γz (15.5.3)</h3>
+        <p>γz = 1/(1 − ${gz.dMtot}/${gz.M1tot}) = <b>${gz.gz.toFixed(3)}</b> — ${gz.classe}</p>
+        <h3>11. Verificações</h3>
         <table>
           <tr><th>Verificação</th><th>Ref.</th><th>Valor</th><th>Status</th></tr>
           ${verif.checks.map(c=>`<tr><td>${c.nome}</td><td>${c.ref||''}</td><td>${c.valor||''}</td><td>${c.ok===true?'OK':c.ok===false?'NÃO OK':'—'}</td></tr>`).join('')}
         </table>
-        <h3>13. Conclusão</h3>
-        ${verif.util.ok&&verif.checks.every(c=>c.ok!==false)
-          ?`<div class="alert ok"><b>Conclusão:</b> Pilar verificado para as condições de cálculo.${forces.gn>1?` Majoração γn = ${forces.gn.toFixed(2)} aplicada (NBR 6118:2023, 13.2.3).`:''}</div>`
+        <h3>12. Conclusão</h3>
+        ${verif.util.util<=1.0&&verif.checks.every(c=>c.ok!==false)
+          ?`<div class="alert ok"><b>Conclusão:</b> Pilar verificado. Utilização = ${verif.util.util.toFixed(3)} (folga ${(capacity.fator_folga*100-100).toFixed(0)}%).</div>`
           :verif.util.util>1.0
-          ?'<div class="alert err"><b>Conclusão:</b> Pilar NÃO ATENDE aos critérios implementados.</div>'
+          ?`<div class="alert err"><b>Conclusão:</b> Pilar NÃO ATENDE. Utilização = ${verif.util.util.toFixed(3)}.</div>`
           :'<div class="alert warn"><b>Conclusão:</b> Pilar atende parcialmente.</div>'}
         <hr>
         <p style="font-size:10px;color:#64748b;">APavan Engenharia e Consultoria · CREA-SC 86959-8 · Tubarão/SC</p>
